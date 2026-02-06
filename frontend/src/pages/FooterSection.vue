@@ -22,55 +22,58 @@
             <hr class="border-gray-400" />
 
             <!-- Main Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-8 px-8 py-6 pb-5 pt-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 px-8 py-6 pb-5 pt-5">
                 <!-- Subscribe -->
                 <div class="col-span-1 md:col-span-2">
                     <h4 class="font-semibold mb-3 text-sm">Subscribe</h4>
-                    <div class="flex items-center mb-3">
-                        <input type="email" placeholder="Your e-mail"
-                            class="w-50 h-8 px-3 text-sm border border-gray-300 rounded-l-full outline-none focus:ring-0" />
-                        <button
-                            class="bg-[#1a1a1a] text-white px-4 h-8 text-sm rounded-r-full flex items-center justify-center space-x-1">
-                            <span>Send</span>
+
+                    <div class="flex items-center mb-2">
+                        <input v-model="email" type="email" placeholder="Your e-mail"
+                            class="w-50 h-8 px-3 text-sm border border-gray-300 rounded-l-full outline-none" />
+
+                        <button @click="subscribe" :disabled="loading"
+                            class="bg-[#1a1a1a] text-white px-4 h-8 text-sm rounded-r-full flex items-center justify-center space-x-1 disabled:opacity-60">
+                            <span>{{ loading ? 'Sending...' : 'Send' }}</span>
                             <span>→</span>
                         </button>
                     </div>
-                    <p class="text-xs text-gray-800 pb-2">
-                        Destiny Promoters have been in the diversified business of <br>real estate sector over the last
-                        5 years.
+
+                    <p v-if="message" class="text-xs mt-1" :class="statusClass">
+                        {{ message }}
+                    </p>
+
+                    <p class="text-xs text-gray-800 pt-2">
+                        Destiny Promoters have been in the diversified business of <br />
+                        real estate sector over the last 5 years.
                     </p>
                 </div>
-
 
                 <!-- Quick Links -->
                 <div class="col-span-1">
                     <div class="font-semibold mb-3 text-sm">Quick Links</div>
                     <div class="space-y-2 text-xs text-black">
-
-                        <div><router-link to="/AboutUs" class="font no-underline">About</router-link></div>
-                        <div><router-link to="/contact-us" class="font no-underline">Contact</router-link></div>
-                        <div><router-link to="/Listing" class="font no-underline">Listing</router-link></div>
-                        <div><router-link to="/privacy-policy" class="font no-underline">Privacy Policy</router-link>
-                        </div>
-                        <div><router-link to="/terms-and-conditions" class="font no-underline">Terms &
+                        <div><router-link to="/AboutUs" class="text-black no-underline">About</router-link></div>
+                        <div><router-link to="/contact-us" class="text-black no-underline">Contact</router-link></div>
+                        <div><router-link to="/Listing" class="text-black no-underline">Listing</router-link></div>
+                        <div><router-link to="/privacy-policy" class="text-black no-underline">Privacy
+                                Policy</router-link></div>
+                        <div><router-link to="/terms-and-conditions" class="text-black no-underline">Terms &
                                 Conditions</router-link></div>
-
                     </div>
                 </div>
 
                 <!-- Contact Us -->
-                <div class="col-span-1 ">
+                <div class="col-span-1">
                     <div class="font-semibold mb-3 text-sm">Contact Us</div>
-                    <a href="mailto:sales@destinypromoters.in" class="block text-xs font no-underline">
+                    <a href="mailto:sales@destinypromoters.in" class="block text-xs text-black no-underline">
                         sales@destinypromoters.in
                     </a>
-
-                    <a href="tel:+919686450917" class="block text-xs font no-underline mt-1">
+                    <a href="tel:+919686450917" class="block text-xs mt-1 text-black no-underline">
                         +91 96864 50917
                     </a>
                 </div>
 
-                <!-- Our Address -->
+                <!-- Address -->
                 <div class="col-span-1">
                     <div class="font-semibold mb-3 text-sm">Our Address</div>
                     <div class="text-xs text-black leading-snug">
@@ -78,33 +81,7 @@
                         7th Block, Bangalore - 560082
                     </div>
                 </div>
-
-                <!-- Get the App -->
-                <div class="col-span-1">
-                    <div class="font-semibold mb-3 text-sm">Get the app</div>
-                    <div class="space-y-3">
-                        <button
-                            class="bg-[#1a1a1a] text-white px-4 py-2 rounded-lg flex items-center space-x-4 sm:w-1/2 md:w-full text-sm">
-                            <i class="fab fa-apple text-lg"></i>
-                            <span class="text-left">
-                                <span class="block text-xs font-light text-gray-200">Download on the</span>
-                                <span class="font-semibold">Apple Store</span>
-                            </span>
-                        </button>
-
-                        <button
-                            class="bg-[#1a1a1a] text-white px-4 py-2 rounded-lg flex items-center space-x-4 sm:w-1/2 md:w-full text-sm">
-                            <i class="fab fa-google-play text-lg"></i>
-                            <span class="text-left">
-                                <span class="block text-xs font-light text-gray-200">Get it on</span>
-                                <span class="font-semibold">Google Play</span>
-                            </span>
-                        </button>
-
-                    </div>
-                </div>
             </div>
-
 
             <hr class="border-gray-400" />
 
@@ -117,11 +94,67 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "FooterSection",
+
+<script setup>
+import { ref, computed } from "vue";
+
+const email = ref("");
+const message = ref("");
+const status = ref(""); // success | exists | error
+const loading = ref(false);
+
+const statusClass = computed(() => {
+    if (status.value === "success") return "text-green-600";
+    return "text-red-600";
+});
+
+const subscribe = async () => {
+    if (!email.value) {
+        message.value = "Please enter your email";
+        status.value = "error";
+        return;
+    }
+
+    loading.value = true;
+    message.value = "";
+
+    try {
+        const res = await fetch(
+            "/api/method/destiny_promoters_website.api.newsletter.subscribe",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: email.value }),
+            }
+        );
+
+        const data = await res.json();
+        const response = data.message; // 🔥 THIS WAS THE KEY
+
+        if (response.status === "success") {
+            message.value = response.message;
+            status.value = "success";
+            email.value = "";
+        }
+        else if (response.status === "exists") {
+            message.value = response.message;
+            status.value = "exists";
+        }
+        else {
+            message.value = response.message || "Something went wrong";
+            status.value = "error";
+        }
+
+    } catch (err) {
+        message.value = "Server error. Please try again.";
+        status.value = "error";
+    } finally {
+        loading.value = false;
+    }
 };
+
 </script>
+
 
 <style scoped>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");

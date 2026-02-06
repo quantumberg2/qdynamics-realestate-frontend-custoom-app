@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-02-06 15:04:43.457476",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "destiny_promoters_newsletter_section",
+  "email",
+  "subscribed_or_not"
+ ],
+ "fields": [
+  {
+   "fieldname": "destiny_promoters_newsletter_section",
+   "fieldtype": "Section Break",
+   "label": "Destiny Promoters Newsletter"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "subscribed_or_not",
+   "fieldtype": "Select",
+   "label": "Subscribed or Not",
+   "options": "\nYes\nNo"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-02-06 16:00:11.810340",
+ "modified_by": "Administrator",
+ "module": "Destiny Promoters Website",
+ "name": "Destiny-Promoters-Newsletter",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
