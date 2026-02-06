@@ -48,7 +48,7 @@
                     <div class="space-y-2 text-xs text-black">
 
                         <div><router-link to="/AboutUs" class="font no-underline">About</router-link></div>
-                        <div><router-link to="/ContactUS" class="font no-underline">Contact</router-link></div>
+                        <div><router-link to="/contact-us" class="font no-underline">Contact</router-link></div>
                         <div><router-link to="/Listing" class="font no-underline">Listing</router-link></div>
                         <div><router-link to="/privacy-policy" class="font no-underline">Privacy Policy</router-link>
                         </div>

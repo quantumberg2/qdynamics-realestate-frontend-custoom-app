@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="px-4">
         <div class="container-fluid bg-gray-50 rounded-2xl mx-auto py-4 px-4">
             <div class="flex flex-col items-center relative">
@@ -21,7 +21,6 @@
                 </div>
             </div>
 
-            <!-- Carousel -->
             <el-carousel :interval="5000" arrow="always" height="350px" indicator-position="none">
                 <el-carousel-item v-for="(chunk, index) in chunkedHomes" :key="'chunk-' + index">
                     <div class="container px-5">
@@ -116,4 +115,4 @@ const chunkedHomes = computed(() => {
     }
     return chunks
 })
-</script>
+</script> -->

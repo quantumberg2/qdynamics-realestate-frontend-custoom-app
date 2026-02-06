@@ -15,6 +15,7 @@
   "builder",
   "super_built_up_area",
   "project_type",
+  "order_by",
   "column_break_yswq",
   "floors",
   "bath",
@@ -44,7 +45,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Ready to Occupy\nUpcoming\nSold Out\nSale"
+   "options": "\nNew\nReady to Occupy\nUpcoming\nSold Out\nSale"
   },
   {
    "fieldname": "project_location",
@@ -131,12 +132,17 @@
    "fieldtype": "Table",
    "label": "Gallery Images",
    "options": "Project Gallery Image"
+  },
+  {
+   "fieldname": "order_by",
+   "fieldtype": "Data",
+   "label": "Order By"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-08-29 10:19:12.412343",
+ "modified": "2026-02-06 14:43:16.116198",
  "modified_by": "Administrator",
  "module": "Destiny Promoters Website",
  "name": "Real Estate Project",

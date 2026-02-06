@@ -2,9 +2,31 @@ import frappe
 from frappe import _
 
 @frappe.whitelist(allow_guest=True)
-def get_projects():
+def get_projects(tag=None):
+    """
+    tag example: 'Featured-Properties'
+    """
+
+    filters = {}
+
+    if tag:
+        tagged_projects = frappe.get_all(
+            "Tag Link",
+            filters={
+                "document_type": "Real Estate Project",
+                "tag": tag
+            },
+            pluck="document_name"
+        )
+
+        if not tagged_projects:
+            return []
+
+        filters["name"] = ["in", tagged_projects]
+
     projects = frappe.get_all(
         "Real Estate Project",
+        filters=filters,
         fields=[
             "name",
             "project_name",
@@ -23,52 +45,26 @@ def get_projects():
             "heading_first",
             "description",
             "thumbnail",
-            "owner",
-            "creation",
-            "modified",
-            "modified_by",
-            "docstatus",
-            "idx"
-        ]
+            "order_by"   # optional but good for debugging
+        ],
+        order_by="order_by desc"   # 🔥 THIS IS THE KEY LINE
     )
 
-    # add `id` alias and fetch child tables
     for project in projects:
         project["id"] = project["name"]
 
         project["carousel_images"] = frappe.get_all(
             "Project Carousel Image",
             filters={"parent": project["name"]},
-            fields=["name", "image", "parent", "parentfield", "parenttype", "idx"]
+            fields=["name", "image", "idx"],
+            order_by="idx asc"
         )
+
         project["gallery_images"] = frappe.get_all(
             "Project Gallery Image",
             filters={"parent": project["name"]},
-            fields=["name", "image", "parent", "parentfield", "parenttype", "idx"]
+            fields=["name", "image", "idx"],
+            order_by="idx asc"
         )
 
     return projects
-
-
-@frappe.whitelist(allow_guest=True)
-def get_project(id):
-    project = frappe.get_doc("Real Estate Project", id)
-    project_dict = project.as_dict()
-
-    # add `id` alias
-    project_dict["id"] = project_dict.get("name")
-
-    # fetch child tables
-    project_dict["carousel_images"] = frappe.get_all(
-        "Project Carousel Image",
-        filters={"parent": project_dict["name"]},
-        fields=["name", "image", "parent", "parentfield", "parenttype", "idx"]
-    )
-    project_dict["gallery_images"] = frappe.get_all(
-        "Project Gallery Image",
-        filters={"parent": project_dict["name"]},
-        fields=["name", "image", "parent", "parentfield", "parenttype", "idx"]
-    )
-
-    return project_dict
-

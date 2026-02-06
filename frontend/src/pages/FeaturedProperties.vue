@@ -1,25 +1,27 @@
 <template>
     <div class="container mx-auto px-4 py-8">
+
         <!-- Section Heading -->
-        <div class="text-center">
+        <div class="text-center mb-6">
             <div class="font-semibold text-7xl">Featured Properties</div>
             <p class="text-xs">Lorem ipsum dolor sit amet</p>
         </div>
 
         <!-- Cards Grid -->
         <div class="row g-4">
-            <div v-for="(property, index) in properties" :key="index" class="col-12 col-sm-6 col-lg-3">
-                <!-- Wrap card with RouterLink -->
-                <router-link :to="`/ListingDetails/${property.id}`" class="text-decoration-none">
-                    <div class="card h-100 shadow-sm border-0 rounded-3 border-5">
+            <div v-for="property in properties" :key="property.id" class="col-12 col-sm-6 col-lg-3">
+                <router-link :to="`/listing/${property.id}`" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm border-0 rounded-3">
+
                         <!-- Image Section -->
                         <div class="relative p-2 pb-0">
                             <img :src="property.image" class="card-img-top rounded-3" alt="Property" />
-                            <!-- Badges -->
-                            <div class="absolute top-6 left-6 flex gap-2">
-                                <span v-for="(badge, idx) in property.badges" :key="idx"
-                                    class="px-3 py-1 text-xs font-bold rounded-full" :class="badgeColors(badge)">
-                                    {{ badge }}
+
+                            <!-- Status Badge -->
+                            <div class="absolute top-6 left-6">
+                                <span v-if="property.status" class="px-3 py-1 text-xs font-bold rounded-full"
+                                    :class="badgeColors(property.status)">
+                                    {{ property.status }}
                                 </span>
                             </div>
                         </div>
@@ -29,10 +31,12 @@
                             <h6 class="text-red-400 font-semibold text-[13px]">
                                 {{ property.title }}
                             </h6>
+
                             <div class="card-title fw-semibold mb-1 text-[13px]">
                                 {{ property.subtitle }}
                             </div>
-                            <div class="text-xs mb-2 d-flex align-items-center ">
+
+                            <div class="text-xs mb-2 d-flex align-items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" class="h-4 w-4 me-1">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -49,16 +53,19 @@
                                     <img src="../assets/images/Bed.png" alt="" class="h-3" />
                                     {{ property.beds }}
                                 </span>
+
                                 <span class="d-flex align-items-center gap-2">
                                     <img src="../assets/images/Bath.png" alt="" class="h-3" />
                                     {{ property.baths }}
                                 </span>
+
                                 <span class="d-flex align-items-center gap-2">
                                     <img src="../assets/images/Sqft.png" alt="" class="h-3" />
                                     {{ property.sizes }}
                                 </span>
                             </div>
                         </div>
+
                     </div>
                 </router-link>
             </div>
@@ -67,63 +74,47 @@
 </template>
 
 <script setup>
-const properties = [
-    {
-        id: 6,
-        title: "Live Healthy, Live Well",
-        subtitle: "Birla Apple Spire",
-        location: "Nayanda Halli, Bangalore",
-        beds: "2 & 3",
-        baths: "2",
-        sizes: "1241 - 1847",
-        badges: ["FOR SALE"],
-        image: new URL("../assets/images/hfy_img_1.png", import.meta.url).href,
-    },
-    {
-        id: 11,
-        title: "A Rare Blend of Luxury, Necessity",
-        subtitle: "Suvedha Luxuria",
-        location: "Uttarahalli, Bangalore",
-        beds: "3",
-        baths: "2",
-        sizes: "2227",
-        badges: ["FOR RENT"],
-        image: new URL("../assets/images/hfy_img_2.png", import.meta.url).href,
-    },
-    {
-        id: 9,
-        title: "Higher Quality Of Living",
-        subtitle: "Suvedha Paradise",
-        location: "Srinivasanagar, Bangalore",
-        beds: "2 & 3",
-        baths: "2",
-        sizes: "1075 - 1300",
-        badges: ["FOR SALE"],
-        image: new URL("../assets/images/hfy_img_3.png", import.meta.url).href,
-    },
-    {
-        id: 8,
-        title: "An Irresistible Living Option",
-        subtitle: "Suvedha Elegant",
-        location: "Banashankari, Bangalore",
-        beds: "2 & 3",
-        baths: "2",
-        sizes: "1026 - 1301",
-        badges: ["FOR RENT", "FEATURED"],
-        image: new URL("../assets/images/hfy_img_4.png", import.meta.url).href,
-    },
-];
+import { ref, onMounted } from "vue"
 
-const badgeColors = (badge) => {
-    switch (badge) {
-        case "FOR SALE":
-            return "bg-black text-white";
-        case "FOR RENT":
-            return "bg-black text-white";
-        case "FEATURED":
-            return "bg-yellow-200 text-black";
-        default:
-            return "bg-black text-black";
+const properties = ref([])
+
+onMounted(async () => {
+    try {
+        const res = await fetch(
+            "/api/method/destiny_promoters_website.api.project_api.get_projects?tag=Featured-Properties"
+        )
+        if (!res.ok) throw new Error("Failed to fetch featured properties")
+
+        const data = await res.json()
+
+        properties.value = data.message.map(p => ({
+            id: p.id || p.name,
+            title: p.heading_first || "Featured Property",
+            subtitle: p.project_name,
+            location: p.full_location,
+            beds: p.bhk || "-",
+            baths: p.bath || "-",
+            sizes: p.super_built_up_area || "-",
+            status: p.status, // 👈 dynamic badge
+            image: p.thumbnail
+        }))
+    } catch (err) {
+        console.error("Featured properties error:", err)
     }
-};
+})
+
+const badgeColors = (status) => {
+    switch (status) {
+        case "New":
+            return "bg-black text-white"
+        case "Sold Out":
+            return "bg-black text-white"
+        case "Ongoing":
+            return "bg-black text-white"
+        case "Coming Soon":
+            return "bg-black text-white"
+        default:
+            return "bg-black text-white"
+    }
+}
 </script>

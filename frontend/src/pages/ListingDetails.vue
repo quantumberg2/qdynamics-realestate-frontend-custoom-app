@@ -129,15 +129,16 @@
 </template>
 
 <script setup>
-import BuildingAmenities from './BuildingAmenities.vue'
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
+import BuildingAmenities from './BuildingAmenities.vue'
 
 const route = useRoute()
 const property = ref(null)
 const loading = ref(true)
 const carouselHeight = ref('550px')
 
+/* 🔴 RESPONSIVE CAROUSEL HEIGHT */
 const setHeight = () => {
     if (window.innerWidth < 768) {
         carouselHeight.value = '250px'
@@ -148,54 +149,75 @@ const setHeight = () => {
     }
 }
 
+/* 🟢 SAFE IFRAME SRC EXTRACTION */
 const extractIframeSrc = (iframeString) => {
     if (!iframeString) return ''
     const match = iframeString.match(/src="([^"]+)"/)
-    return match ? match[1] : iframeString // ✅ supports raw URL too
+    return match ? match[1] : iframeString
 }
 
-const mapPropertyData = (data) => {
-    return {
-        name: data.project_name,
-        status: data.status,
-        floors: data.floors,
-        bhk: data.bhk,
-        fullLocation: data.full_location,
-        projectArea: data.project_area,
-        builder: data.builder,
-        superBuiltUpArea: data.super_built_up_area,
-        type: data.project_type,
-        location: data.heading_project_location,
-        headingFirst: data.heading_first,
-        description: data.description,
-        headingProjectLocation: data.heading_project_location,
-        projectLocation: extractIframeSrc(data.project_location),
-        carouselImages: data.carousel_images ? data.carousel_images.map(img => img.image) : [],
-        galleryImages: data.gallery_images ? data.gallery_images.map(img => img.image) : []
-    }
-}
+/* 🟢 BACKEND → UI MAPPER */
+const mapPropertyData = (data) => ({
+    name: data.project_name,
+    status: data.status,
+    floors: data.floors,
+    bhk: data.bhk,
+    fullLocation: data.full_location,
+    projectArea: data.project_area,
+    builder: data.builder,
+    superBuiltUpArea: data.super_built_up_area,
+    type: data.project_type,
+    location: data.heading_project_location,
+    headingFirst: data.heading_first,
+    description: data.description,
+    projectLocation: extractIframeSrc(data.project_location),
+    carouselImages: data.carousel_images?.map(img => img.image) || [],
+    galleryImages: data.gallery_images?.map(img => img.image) || []
+})
 
+/* 🔴 SINGLE SOURCE OF TRUTH FETCH */
 const fetchProperty = async (id) => {
     try {
-        loading.value = true
-        const res = await fetch(`/api/method/destiny_promoters_website.api.project_api.get_project?id=${id}`)
+        loading.value = true           // 🔴 IMPORTANT
+        property.value = null
+
+        const res = await fetch(
+            `/api/method/destiny_promoters_website.api.project_api.get_project?id=${id}`
+        )
+
+        if (!res.ok) throw new Error('API Error')
+
         const data = await res.json()
         property.value = mapPropertyData(data.message)
     } catch (err) {
-        console.error("Error loading property:", err)
+        console.error('Error loading property:', err)
         property.value = null
     } finally {
         loading.value = false
     }
 }
 
+/* 🟢 INITIAL LOAD */
 onMounted(async () => {
-    await fetchProperty(route.params.id)
     setHeight()
     window.addEventListener('resize', setHeight)
+
+    if (route.params.id) {
+        await fetchProperty(route.params.id)
+    }
 })
 
-watch(() => route.params.id, async (newId) => {
-    if (newId) await fetchProperty(newId)
+/* 🔴 HANDLE ROUTE CHANGE (CLICK ANOTHER PROPERTY) */
+watch(
+    () => route.params.id,
+    async (newId) => {
+        if (!newId) return
+        await fetchProperty(newId)
+    }
+)
+
+/* 🟢 CLEANUP */
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', setHeight)
 })
 </script>
