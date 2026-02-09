@@ -90,12 +90,12 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white p-4 custom-clip items-start">
 
             <div class="text-left px-5">
-              <div class="text-4xl font-bold">5+</div>
+              <div class="text-4xl font-bold">{{ soldOutCount }}+</div>
               <div class="text-sm text-gray-600 mt-1">Completed Projects</div>
             </div>
 
             <div class="text-left px-5">
-              <div class="text-4xl font-bold">8+</div>
+              <div class="text-4xl font-bold">{{ upcomingCount }}+</div>
               <div class="text-sm text-gray-600 mt-1">Upcoming Projects</div>
             </div>
 
@@ -188,11 +188,11 @@
       <div
         class="block md:hidden bg-white p-4 w-[95%] mx-auto mt-4 grid grid-cols-1 text-center gap-4 rounded-xl shadow">
         <div>
-          <div class="text-xl font-bold">5+</div>
+          <div class="text-xl font-bold">{{ soldOutCount }}+</div>
           <div class="text-gray-500 text-sm">Completed Projects</div>
         </div>
         <div>
-          <div class="text-xl font-bold">8+</div>
+          <div class="text-xl font-bold">{{ upcomingCount }}+</div>
           <div class="text-gray-500 text-sm">Upcoming Projects</div>
         </div>
         <div>
@@ -277,6 +277,18 @@ const chunkedHomes = computed(() => {
     chunks.push(filteredHomes.value.slice(i, i + chunkSize))
   }
   return chunks
+})
+
+const soldOutCount = computed(() => {
+  return homes.value.filter(
+    h => h.status?.toLowerCase() === 'sold out'
+  ).length
+})
+
+const upcomingCount = computed(() => {
+  return homes.value.filter(
+    h => h.status?.toLowerCase() === 'upcoming'
+  ).length
 })
 
 const setFilter = filter => {

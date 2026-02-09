@@ -22,10 +22,35 @@
                             </router-link>
                         </li>
 
-                        <li>
-                            <router-link to="/listing" class="text-gray-800 no-underline">
-                                Listing
-                            </router-link>
+                        <li class="relative group">
+                            <div class="text-gray-800 no-underline flex items-center">
+                                <router-link to="/listing" class="text-gray-800 no-underline">
+                                    Listing
+                                </router-link>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+
+                            <ul class="absolute hidden group-hover:block bg-white border rounded shadow-md w-60 z-50">
+                                <li>
+                                    <router-link :to="{ path: '/listing', query: { status: 'New' } }"
+                                        class="block py-2 px-4 text-gray-800 no-underline hover:bg-gray-100">
+                                        New Listing
+                                    </router-link>
+                                </li>
+
+                                <li>
+                                    <router-link :to="{ path: '/listing', query: { status: 'Sold Out' } }"
+                                        class="block py-2 px-4 text-gray-800 no-underline hover:bg-gray-100">
+                                        Completed Listing
+                                    </router-link>
+                                </li>
+                            </ul>
                         </li>
 
                         <li>
@@ -137,39 +162,89 @@
                     <transition name="fade-slide">
                         <ul v-if="isOpen" ref="mobileMenu"
                             class="absolute right-0 mt-2 bg-white w-60 shadow-lg rounded-md px-6 py-4 space-y-2 font-regular z-50">
+                            <!-- Home -->
+                            <router-link to="/" class="block font-medium text-gray-800 no-underline"
+                                @click="closeMobileMenu">
+                                Home
+                            </router-link>
+
+                            <!-- Listing Dropdown -->
                             <li>
-                                <router-link to="/" class="block text-gray-800 no-underline">
-                                    Home
-                                </router-link>
+                                <button @click="toggleListing"
+                                    class="w-full flex justify-between items-center font-medium text-gray-800 no-underline ">
+                                    <router-link to="/listing" class="text-gray-800 no-underline"
+                                        @click="closeMobileMenu">
+                                        Listing
+                                    </router-link>
+                                    <span :class="{ 'rotate-180': isListingOpen }" class="transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <ul v-show="isListingOpen" class="mt-2 space-y-2">
+                                    <router-link :to="{ path: '/listing', query: { status: 'New' } }"
+                                        class="block text-gray-800 no-underline" @click="closeMobileMenu">
+                                        New Listing
+                                    </router-link>
+                                    <li>
+                                        <router-link :to="{ path: '/listing', query: { status: 'Sold Out' } }"
+                                            class="block text-gray-800 no-underline" @click="closeMobileMenu">
+                                            Completed Listing
+                                        </router-link>
+                                    </li>
+                                </ul>
                             </li>
 
+                            <!-- About -->
                             <li>
-                                <router-link to="/listing" class="block text-gray-800 no-underline">
-                                    Listing
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link to="/about-us" class="block text-gray-800 no-underline">
+                                <router-link to="/about-us" class="block font-medium text-gray-800 no-underline"
+                                    @click="closeMobileMenu">
                                     About Us
                                 </router-link>
                             </li>
 
+                            <!-- Services Dropdown -->
                             <li>
-                                <router-link to="/construction" class="block text-gray-800 no-underline">
-                                    Construction
-                                </router-link>
+                                <button @click="toggleServices"
+                                    class="w-full flex justify-between items-center font-medium text-gray-800 no-underline">
+                                    Services
+                                    <span :class="{ 'rotate-180': isServicesOpen }" class="transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <ul v-show="isServicesOpen" class="mt-2 space-y-2">
+                                    <li>
+                                        <router-link to="/construction"
+                                            class="block text-gray-700 text-gray-800 no-underline"
+                                            @click="closeMobileMenu">
+                                            Construction
+                                        </router-link>
+                                    </li>
+                                    <li>
+                                        <router-link to="/interiors" class="block text-gray-800 no-underline"
+                                            @click="closeMobileMenu">
+                                            Interiors
+                                        </router-link>
+                                    </li>
+                                </ul>
                             </li>
 
+                            <!-- Contact -->
                             <li>
-                                <router-link to="/interiors" class="block text-gray-800 no-underline">
-                                    Interiors
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link to="/contact-us" class="block text-gray-800 no-underline">
-                                    Contact Us
+                                <router-link to="/contact-us" class="block font-medium text-gray-800 no-underline"
+                                    @click="closeMobileMenu">
+                                    Contact
                                 </router-link>
                             </li>
 
@@ -235,33 +310,44 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-const isOpen = ref(false) // <-- Mobile menu state
-const menuWrapper = ref(null)      // ✅ ADD THIS
+// ---------------- Mobile Menu ----------------
+const isOpen = ref(false)
+const menuWrapper = ref(null)
+
+const isListingOpen = ref(false)
+const isServicesOpen = ref(false)
+
+// ---------------- User / Auth ----------------
+const isUserDropdownOpen = ref(false)
+const isLoggedIn = ref(false)
+const full_name = ref('')
 const userMenu = ref(null)
 
-// Toggle mobile menu
+const closeMobileMenu = () => {
+    isOpen.value = false
+    isListingOpen.value = false
+    isServicesOpen.value = false
+    isUserDropdownOpen.value = false
+}
+
+const toggleListing = () => {
+    isListingOpen.value = !isListingOpen.value
+}
+
+const toggleServices = () => {
+    isServicesOpen.value = !isServicesOpen.value
+}
+
 const toggleMenu = () => {
     isOpen.value = !isOpen.value
 }
 
-// Close menu on outside click
 const handleClickOutsideMobile = (event) => {
-    if (
-        isOpen.value &&
-        menuWrapper.value &&
-        !menuWrapper.value.contains(event.target)
-    ) {
+    if (isOpen.value && menuWrapper.value && !menuWrapper.value.contains(event.target)) {
         isOpen.value = false
     }
 }
 
-
-// ---- Existing User Dropdown + Login/Logout Logic ----
-const isUserDropdownOpen = ref(false)
-const isLoggedIn = ref(false)
-const full_name = ref('')
-
-// Safe initial letter
 const userInitial = computed(() => {
     const name = (full_name.value || '').trim()
     return name ? name[0].toUpperCase() : ''
@@ -277,78 +363,56 @@ const handleClickOutside = (event) => {
     }
 }
 
-const goToLogin = () => {
-    window.location.assign('/login#login') // go to Frappe login page
-}
-
-// --- Utilities ---
 const getCookie = (name) => {
     const match = document.cookie.split('; ').find(row => row.startsWith(name + '='))
     return match ? decodeURIComponent(match.split('=')[1]) : ''
 }
 
-const apiGet = async (url) => {
-    const res = await fetch(url, { method: 'GET', credentials: 'include' })
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    return res.json()
-}
-
-// --- Core: check current session against Frappe ---
 const checkLoginStatus = async () => {
     try {
-        const data = await apiGet('/api/method/frappe.auth.get_logged_user')
+        const res = await fetch('/api/method/frappe.auth.get_logged_user', { credentials: 'include' })
+        const data = await res.json()
+
         if (data?.message && data.message !== 'Guest') {
             isLoggedIn.value = true
-            const nameFromCookie = getCookie('full_name')
-            full_name.value = nameFromCookie || data.message
+            full_name.value = getCookie('full_name') || data.message
         } else {
             isLoggedIn.value = false
             full_name.value = ''
         }
-    } catch (e) {
+    } catch {
         isLoggedIn.value = false
         full_name.value = ''
     }
 }
 
-// --- Logout ---
 const logout = async () => {
-    try {
-        await fetch('/api/method/logout', { method: 'GET', credentials: 'include' })
-    } catch (e) { }
+    await fetch('/api/method/logout', { credentials: 'include' })
     isLoggedIn.value = false
     full_name.value = ''
     isUserDropdownOpen.value = false
 }
 
-// --- Switch to Desk ---
+const goToLogin = () => {
+    window.location.assign('/login#login')
+}
+
 const goToDesk = () => {
     window.location.assign('/app/home')
 }
 
-const onFocusOrVisible = () => {
-    checkLoginStatus()
-}
-
+// ---------------- Lifecycle ----------------
 onMounted(() => {
     checkLoginStatus()
     document.addEventListener('click', handleClickOutside)
     document.addEventListener('click', handleClickOutsideMobile)
-    window.addEventListener('focus', onFocusOrVisible)
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') onFocusOrVisible()
-    })
 })
 
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
     document.removeEventListener('click', handleClickOutsideMobile)
-    window.removeEventListener('focus', onFocusOrVisible)
-    document.removeEventListener('visibilitychange', onFocusOrVisible)
 })
 </script>
-
-
 
 <style scoped>
 .fade-slide-enter-active,

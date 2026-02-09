@@ -49,30 +49,36 @@ app_license = "mit"
 # ]
 
 website_route_rules = [
-    # allow frappe system routes
+    # --------------------------------------------------
+    # Allow Frappe system routes (DO NOT TOUCH)
+    # --------------------------------------------------
     {"from_route": "/app/<path:path>", "to_route": "/app/<path:path>"},
     {"from_route": "/login", "to_route": "/login"},
     {"from_route": "/api/<path:path>", "to_route": "/api/<path:path>"},
     {"from_route": "/assets/<path:path>", "to_route": "/assets/<path:path>"},
 
-    # Vue routes
+    # --------------------------------------------------
+    # Vue SPA routes (history mode)
+    # --------------------------------------------------
+    {"from_route": "/", "to_route": "/"},
+
+    # Static pages
     {"from_route": "/listing", "to_route": "/"},
     {"from_route": "/about-us", "to_route": "/"},
     {"from_route": "/construction", "to_route": "/"},
-    {"from_route": "/contact-us", "to_route": "/"},
     {"from_route": "/interiors", "to_route": "/"},
-
-    # ✅ Fix ListingDetails (handles both direct and nested paths)
-    # {"from_route": "/ListingDetails/<id>", "to_route": "/"},
-    # {"from_route": "/ListingDetails/<path:path>", "to_route": "/"},
-
-    # ✅ Fix ListingDetails route
-    {"from_route": "/listing/<id>", "to_route": "/"},
-    {"from_route": "/listing/<path:path>", "to_route": "/"},
-
+    {"from_route": "/contact-us", "to_route": "/"},
     {"from_route": "/privacy-policy", "to_route": "/"},
     {"from_route": "/terms-and-conditions", "to_route": "/"},
+
+    # --------------------------------------------------
+    # Dynamic routes
+    # --------------------------------------------------
+    # Listing details (/listing/:slug)
+    {"from_route": "/listing/<slug>", "to_route": "/"},
+    {"from_route": "/listing/<path:path>", "to_route": "/"},
 ]
+
 
 
 csrf_exempt_methods = [

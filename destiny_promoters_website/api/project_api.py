@@ -1,17 +1,23 @@
 import frappe
 from frappe import _
 
-
 @frappe.whitelist(allow_guest=True)
-def get_projects(tag=None):
+def get_projects(tag=None, status=None):
     """
     Fetch all Real Estate Projects
-    Optional tag filter: 'Featured-Properties'
+    Optional filters:
+    - tag: Featured-Properties
+    - status: New / Sold Out / Upcoming / Ready to Occupy / Sale
     Sorted by order_by DESC
     """
 
     filters = {}
 
+    # 🔹 STATUS FILTER (NEW)
+    if status:
+        filters["status"] = status
+
+    # 🔹 TAG FILTER (EXISTING)
     if tag:
         tagged_projects = frappe.get_all(
             "Tag Link",
@@ -33,8 +39,8 @@ def get_projects(tag=None):
         fields=[
             "name",
             "project_name",
-            "url",              # 🔹 NEW
-            "order_by",         # 🔹 NEW
+            "url",
+            "order_by",
             "heading_project_location",
             "status",
             "project_location",
@@ -51,7 +57,7 @@ def get_projects(tag=None):
             "description",
             "thumbnail"
         ],
-        order_by="order_by desc"   # 🔥 SORTING
+        order_by="order_by desc"
     )
 
     for project in projects:
@@ -74,6 +80,7 @@ def get_projects(tag=None):
         )
 
     return projects
+
 
 
 @frappe.whitelist(allow_guest=True)

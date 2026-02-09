@@ -40,7 +40,8 @@
 
             <template v-for="property in filteredProperties" :key="property.slug">
                 <router-link v-if="property && property.slug"
-                    :to="{ name: 'ListingDetails', params: { slug: property.slug } }"                     class="rounded-xl overflow-hidden shadow-md border bg-white no-underline text-black hover:no-underline">
+                    :to="{ name: 'ListingDetails', params: { slug: property.slug } }"
+                    class="rounded-xl overflow-hidden shadow-md border bg-white no-underline text-black hover:no-underline">
                     <!-- Image + Status Badge -->
                     <div class="relative p-2">
                         <img :src="property.thumbnail" alt="Property Image"
@@ -80,14 +81,17 @@
 
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import BuildingAmenities from './BuildingAmenities.vue'
+
+const route = useRoute()
 
 const properties = ref([])
 const searchQuery = ref('')
-const activeDropdown = ref(null)
-const selectedOptions = ref(Array(5).fill(null))
+const loading = ref(false)
 
+// -------- Utils --------
 const stripHtml = (html) => {
     if (!html) return ''
     const div = document.createElement('div')
@@ -97,20 +101,28 @@ const stripHtml = (html) => {
 
 const truncateText = (text, limit = 40) => {
     if (!text) return ''
-    return text.length > limit ? text.substring(0, limit) + '...' : text
+    return text.length > limit ? text.slice(0, limit) + '...' : text
 }
 
-onMounted(async () => {
+// -------- API --------
+const fetchProjects = async () => {
+    loading.value = true
     try {
+        const params = new URLSearchParams()
+
+        if (route.query.status) {
+            params.append('status', route.query.status)
+        }
+
         const res = await fetch(
-            '/api/method/destiny_promoters_website.api.project_api.get_projects'
+            `/api/method/destiny_promoters_website.api.project_api.get_projects?${params.toString()}`,
+            { credentials: 'include' }
         )
-        if (!res.ok) throw new Error('Failed to load properties')
 
         const data = await res.json()
 
-        properties.value = data.message.map(p => ({
-            slug: p.route || p.url || null,   // ✅ SAFE SLUG
+        properties.value = (data.message || []).map(p => ({
+            slug: p.url,                     // ✅ FIXED
             name: p.project_name,
             description: truncateText(stripHtml(p.description), 20),
             thumbnail: p.thumbnail,
@@ -121,19 +133,22 @@ onMounted(async () => {
         }))
     } catch (err) {
         console.error('Error fetching properties:', err)
+        properties.value = []
+    } finally {
+        loading.value = false
     }
-})
+}
 
+// -------- Lifecycle --------
+onMounted(fetchProjects)
+watch(() => route.query.status, fetchProjects)
+
+// -------- Search --------
 const filteredProperties = computed(() => {
+    const q = searchQuery.value.toLowerCase()
     return properties.value.filter(p =>
-        p.slug &&                                     // ✅ PREVENT ROUTER CRASH
-        p.name?.toLowerCase().includes(
-            searchQuery.value.toLowerCase()
-        )
+        p.slug &&
+        p.name?.toLowerCase().includes(q)
     )
 })
-
-const statusBadgeClass = () => {
-    return 'bg-black'
-}
 </script>
