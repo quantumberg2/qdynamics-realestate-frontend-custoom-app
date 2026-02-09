@@ -35,72 +35,49 @@
             </div>
         </div>
 
-        <!-- Filters -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
-            <div v-for="(filter, index) in filters" :key="index" class="relative">
-                <div @click="toggleDropdown(index)"
-                    class="bg-gray-100 rounded-xl px-4 py-3 flex items-center justify-between text-sm cursor-pointer">
-                    <div class="flex items-center gap-2">
-                        <i :class="filter.icon"></i>
-                        <span>{{ selectedOptions[index] ?? filter.label }}</span>
-                    </div>
-                    <i class="bi bi-chevron-down"></i>
-                </div>
-
-                <div v-if="activeDropdown === index"
-                    class="absolute z-10 mt-1 w-full bg-white shadow-md rounded-xl text-sm overflow-hidden">
-                    <div v-for="(option, idx) in filter.options" :key="idx" @click="selectOption(index, option)"
-                        class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        {{ option }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Property Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-            <router-link v-for="property in filteredProperties" :key="property.id"
-                :to="{ name: 'ListingDetails', params: { id: property.id } }"
-                class="rounded-xl overflow-hidden shadow-md border bg-white no-underline text-black hover:no-underline">
+            <template v-for="property in filteredProperties" :key="property.slug">
+                <router-link v-if="property && property.slug"
+                    :to="{ name: 'ListingDetails', params: { slug: property.slug } }"                     class="rounded-xl overflow-hidden shadow-md border bg-white no-underline text-black hover:no-underline">
+                    <!-- Image + Status Badge -->
+                    <div class="relative p-2">
+                        <img :src="property.thumbnail" alt="Property Image"
+                            class="w-full h-52 object-cover rounded-xl" />
 
-                <!-- Image + Status Badge -->
-                <div class="relative p-2">
-                    <img :src="property.thumbnail" alt="Property Image" class="w-full h-52 object-cover rounded-xl" />
-
-                    <!-- Dynamic Status Badge -->
-                    <div v-if="property.status"
-                        class="absolute top-4 left-4 text-white text-[10px] px-3 py-1 rounded-full z-10"
-                        :class="statusBadgeClass(property.status)">
-                        {{ property.status }}
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="px-3 pb-3">
-                    <div class="text-[13px] font-semibold">
-                        {{ property.name }}
-                    </div>
-
-                    <div class="flex items-center justify-between gap-2 mt-1">
-                        <div class="text-xs text-gray-800 max-w-[60%] line-clamp-2">
-                            {{ property.description }}
+                        <div v-if="property.status"
+                            class="absolute top-4 left-4 text-white text-[10px] px-3 py-1 rounded-full z-10 bg-black">
+                            {{ property.status }}
                         </div>
-                        <button
-                            class="bg-black text-white px-2 py-1 rounded-lg hover:bg-gray-800 text-sm whitespace-nowrap">
-                            Know More
-                        </button>
                     </div>
-                </div>
 
-            </router-link>
+                    <!-- Content -->
+                    <div class="px-3 pb-3">
+                        <div class="text-[13px] font-semibold">
+                            {{ property.name }}
+                        </div>
+
+                        <div class="flex items-center justify-between gap-2 mt-1">
+                            <div class="text-xs text-gray-800 max-w-[60%] line-clamp-2">
+                                {{ property.description }}
+                            </div>
+                            <button
+                                class="bg-black text-white px-2 py-1 rounded-lg hover:bg-gray-800 text-sm whitespace-nowrap">
+                                Know More
+                            </button>
+                        </div>
+                    </div>
+                </router-link>
+            </template>
+
         </div>
 
         <!-- Amenities -->
         <BuildingAmenities />
-
     </div>
 </template>
+
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
@@ -120,9 +97,7 @@ const stripHtml = (html) => {
 
 const truncateText = (text, limit = 40) => {
     if (!text) return ''
-    return text.length > limit
-        ? text.substring(0, limit) + '...'
-        : text
+    return text.length > limit ? text.substring(0, limit) + '...' : text
 }
 
 onMounted(async () => {
@@ -131,10 +106,11 @@ onMounted(async () => {
             '/api/method/destiny_promoters_website.api.project_api.get_projects'
         )
         if (!res.ok) throw new Error('Failed to load properties')
+
         const data = await res.json()
 
         properties.value = data.message.map(p => ({
-            id: p.name,
+            slug: p.route || p.url || null,   // ✅ SAFE SLUG
             name: p.project_name,
             description: truncateText(stripHtml(p.description), 20),
             thumbnail: p.thumbnail,
@@ -150,17 +126,14 @@ onMounted(async () => {
 
 const filteredProperties = computed(() => {
     return properties.value.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        p.slug &&                                     // ✅ PREVENT ROUTER CRASH
+        p.name?.toLowerCase().includes(
+            searchQuery.value.toLowerCase()
+        )
     )
 })
 
-const statusBadgeClass = (status) => {
-    switch (status) {
-        case 'Sold Out': return 'bg-black'
-        case 'New Launch': return 'bg-black'
-        case 'Ongoing': return 'bg-black'
-        case 'Coming Soon': return 'bg-black'
-        default: return 'bg-black'
-    }
+const statusBadgeClass = () => {
+    return 'bg-black'
 }
 </script>

@@ -36,7 +36,7 @@ const routes = [
     component: Interiors,
   },
   {
-    path: '/listing/:id',   // 👈 lowercase and consistent
+    path: '/listing/:slug', 
     name: 'ListingDetails',
     component: ListingDetails,
     props: true

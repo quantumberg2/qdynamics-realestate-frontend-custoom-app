@@ -17,6 +17,7 @@
   "project_type",
   "order_by",
   "column_break_yswq",
+  "url",
   "floors",
   "bath",
   "bhk",
@@ -137,12 +138,17 @@
    "fieldname": "order_by",
    "fieldtype": "Data",
    "label": "Order By"
+  },
+  {
+   "fieldname": "url",
+   "fieldtype": "Data",
+   "label": "Url"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-06 14:43:16.116198",
+ "modified": "2026-02-06 20:23:25.127421",
  "modified_by": "Administrator",
  "module": "Destiny Promoters Website",
  "name": "Real Estate Project",

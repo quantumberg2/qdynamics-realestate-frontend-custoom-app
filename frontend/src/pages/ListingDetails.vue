@@ -78,7 +78,7 @@
                             <div class="mb-2">Project By: <span class="font-semibold">{{ property.builder }}</span>
                             </div>
                             <div class="mb-2">Super Built Up Area: <span class="font-semibold">{{
-                                    property.superBuiltUpArea }}</span></div>
+                                property.superBuiltUpArea }}</span></div>
                         </div>
                         <div class="col-6">
                             <div class="mb-2">Project Type: <span class="font-semibold">{{ property.type }}</span></div>
@@ -176,13 +176,13 @@ const mapPropertyData = (data) => ({
 })
 
 /* 🔴 SINGLE SOURCE OF TRUTH FETCH */
-const fetchProperty = async (id) => {
+const fetchProperty = async (slug) => {
     try {
-        loading.value = true           // 🔴 IMPORTANT
+        loading.value = true
         property.value = null
 
         const res = await fetch(
-            `/api/method/destiny_promoters_website.api.project_api.get_project?id=${id}`
+            `/api/method/destiny_promoters_website.api.project_api.get_project?url=${slug}`
         )
 
         if (!res.ok) throw new Error('API Error')
@@ -197,22 +197,23 @@ const fetchProperty = async (id) => {
     }
 }
 
+
 /* 🟢 INITIAL LOAD */
 onMounted(async () => {
     setHeight()
     window.addEventListener('resize', setHeight)
 
-    if (route.params.id) {
-        await fetchProperty(route.params.id)
+    if (route.params.slug) {
+        await fetchProperty(route.params.slug)
     }
 })
 
 /* 🔴 HANDLE ROUTE CHANGE (CLICK ANOTHER PROPERTY) */
 watch(
-    () => route.params.id,
-    async (newId) => {
-        if (!newId) return
-        await fetchProperty(newId)
+    () => route.params.slug,
+    async (newSlug) => {
+        if (!newSlug) return
+        await fetchProperty(newSlug)
     }
 )
 

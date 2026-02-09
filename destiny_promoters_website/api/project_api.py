@@ -2,14 +2,12 @@ import frappe
 from frappe import _
 
 
-# =========================================================
-# LIST PROJECTS (Listing Page)
-# =========================================================
 @frappe.whitelist(allow_guest=True)
 def get_projects(tag=None):
     """
     Fetch all Real Estate Projects
     Optional tag filter: 'Featured-Properties'
+    Sorted by order_by DESC
     """
 
     filters = {}
@@ -35,6 +33,8 @@ def get_projects(tag=None):
         fields=[
             "name",
             "project_name",
+            "url",              # 🔹 NEW
+            "order_by",         # 🔹 NEW
             "heading_project_location",
             "status",
             "project_location",
@@ -50,7 +50,8 @@ def get_projects(tag=None):
             "heading_first",
             "description",
             "thumbnail"
-        ]
+        ],
+        order_by="order_by desc"   # 🔥 SORTING
     )
 
     for project in projects:
@@ -75,26 +76,31 @@ def get_projects(tag=None):
     return projects
 
 
-# =========================================================
-# SINGLE PROJECT (Listing Details Page)
-# =========================================================
 @frappe.whitelist(allow_guest=True)
-def get_project(id):
+def get_project(url):
     """
-    Fetch SINGLE Real Estate Project by DocType name
+    Fetch SINGLE Real Estate Project by URL
     """
 
-    if not id:
-        frappe.throw(_("Project ID is required"))
+    if not url:
+        frappe.throw(_("Project URL is required"))
 
-    if not frappe.db.exists("Real Estate Project", id):
-        frappe.throw(_("Project not found"))
+    project_name = frappe.db.get_value(
+        "Real Estate Project",
+        {"url": url},
+        "name"
+    )
 
-    project = frappe.get_doc("Real Estate Project", id)
+    if not project_name:
+        return None
+
+    project = frappe.get_doc("Real Estate Project", project_name)
 
     data = {
         "name": project.name,
         "project_name": project.project_name,
+        "url": project.url,              # 🔹 NEW
+        "order_by": project.order_by,    # 🔹 NEW
         "status": project.status,
         "floors": project.floors,
         "bath": project.bath,
@@ -128,3 +134,4 @@ def get_project(id):
     )
 
     return data
+

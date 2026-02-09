@@ -136,7 +136,8 @@
               <div class="container">
                 <div class="row justify-content-center g-4">
                   <div class="col-md-4" v-for="(home, idx) in chunk" :key="'home-' + idx">
-                    <router-link :to="{ name: 'ListingDetails', params: { id: home.id } }" class="text-decoration-none">
+                    <router-link v-if="home.slug" :to="{ name: 'ListingDetails', params: { slug: home.slug } }"
+                      class="text-decoration-none">
                       <div class="card h-100 shadow-sm border-0 rounded-3">
                         <div class="position-relative">
                           <img :src="home.thumbnail" class="card-img-top p-2 rounded-4" alt="Property Image"
@@ -243,7 +244,8 @@ onMounted(async () => {
 
     // frappe returns { message: [...] }
     homes.value = data.message.map(project => ({
-      id: project.name,
+      id: project.name,                     // keep if needed internally
+      slug: project.route || project.url,   // ✅ IMPORTANT
       project_name: project.project_name,
       status: project.status,
       full_location: project.full_location,

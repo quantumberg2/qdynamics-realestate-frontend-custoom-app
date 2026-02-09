@@ -56,11 +56,11 @@ website_route_rules = [
     {"from_route": "/assets/<path:path>", "to_route": "/assets/<path:path>"},
 
     # Vue routes
-    {"from_route": "/Listing", "to_route": "/"},
+    {"from_route": "/listing", "to_route": "/"},
     {"from_route": "/about-us", "to_route": "/"},
-    {"from_route": "/Construction", "to_route": "/"},
+    {"from_route": "/construction", "to_route": "/"},
     {"from_route": "/contact-us", "to_route": "/"},
-    {"from_route": "/Interiors", "to_route": "/"},
+    {"from_route": "/interiors", "to_route": "/"},
 
     # ✅ Fix ListingDetails (handles both direct and nested paths)
     # {"from_route": "/ListingDetails/<id>", "to_route": "/"},

@@ -10,7 +10,8 @@
         <!-- Cards Grid -->
         <div class="row g-4">
             <div v-for="property in properties" :key="property.id" class="col-12 col-sm-6 col-lg-3">
-                <router-link :to="`/listing/${property.id}`" class="text-decoration-none">
+                <router-link v-if="property.slug" :to="{ name: 'ListingDetails', params: { slug: property.slug } }"
+                    class="text-decoration-none">
                     <div class="card h-100 shadow-sm border-0 rounded-3">
 
                         <!-- Image Section -->
@@ -88,14 +89,15 @@ onMounted(async () => {
         const data = await res.json()
 
         properties.value = data.message.map(p => ({
-            id: p.id || p.name,
+            id: p.name,                         // internal use (optional)
+            slug: p.route || p.url || null,     // ✅ SEO URL
             title: p.heading_first || "Featured Property",
             subtitle: p.project_name,
             location: p.full_location,
             beds: p.bhk || "-",
             baths: p.bath || "-",
             sizes: p.super_built_up_area || "-",
-            status: p.status, // 👈 dynamic badge
+            status: p.status,
             image: p.thumbnail
         }))
     } catch (err) {

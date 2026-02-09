@@ -15,32 +15,27 @@
 
                     <!-- Left nav links -->
                     <ul class="flex items-center space-x-8">
+                        <!-- Example for Desktop Navigation -->
                         <li>
-                            <router-link to="/" class="text-gray-800  no-underline" custom v-slot="{ navigate, href }">
-                                <a :href="href" @click="navigate" class="no-underline text-gray-800">
-                                    Home
-                                </a>
+                            <router-link to="/" class="text-gray-800 no-underline">
+                                Home
                             </router-link>
                         </li>
 
                         <li>
-                            <router-link to="/Listing" class="text-gray-800  no-underline" custom
-                                v-slot="{ navigate, href }">
-                                <a :href="href" @click="navigate" class="no-underline text-gray-800">
-                                    Listing
-                                </a>
+                            <router-link to="/listing" class="text-gray-800 no-underline">
+                                Listing
                             </router-link>
                         </li>
+
                         <li>
-                            <router-link to="/about-us" class="text-gray-800  no-underline" custom
-                                v-slot="{ navigate, href }">
-                                <a :href="href" @click="navigate" class="no-underline text-gray-800">
-                                    About Us
-                                </a>
+                            <router-link to="/about-us" class="text-gray-800 no-underline">
+                                About Us
                             </router-link>
                         </li>
+
                         <li class="relative group">
-                            <div href="#" class="text-gray-800  no-underline flex items-center space-x-2">
+                            <div class="text-gray-800 no-underline flex items-center space-x-2">
                                 Services
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
                                     fill="currentColor">
@@ -51,29 +46,21 @@
                             </div>
                             <ul class="absolute hidden group-hover:block bg-white border rounded shadow-md w-40 z-50">
                                 <li>
-                                    <router-link to="/construction" custom v-slot="{ navigate, href }">
-                                        <a :href="href" @click="navigate"
-                                            class="block py-2 text-gray-800  no-underline">
-                                            Construction
-                                        </a>
+                                    <router-link to="/construction" class="block py-2 text-gray-800 no-underline">
+                                        Construction
                                     </router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/Interiors" custom v-slot="{ navigate, href }">
-                                        <a :href="href" @click="navigate"
-                                            class="block py-2 text-gray-800  no-underline">
-                                            Interiors
-                                        </a>
+                                    <router-link to="/interiors" class="block py-2 text-gray-800 no-underline">
+                                        Interiors
                                     </router-link>
                                 </li>
                             </ul>
-
                         </li>
+
                         <li>
-                            <router-link to="/contact-us" custom v-slot="{ navigate, href }">
-                                <a :href="href" @click="navigate" class="block py-2 text-gray-800  no-underline">
-                                    Contact
-                                </a>
+                            <router-link to="/contact-us" class="block py-2 text-gray-800 no-underline">
+                                Contact
                             </router-link>
                         </li>
                     </ul>
@@ -151,50 +138,38 @@
                         <ul v-if="isOpen" ref="mobileMenu"
                             class="absolute right-0 mt-2 bg-white w-60 shadow-lg rounded-md px-6 py-4 space-y-2 font-regular z-50">
                             <li>
-                                <router-link to="/" custom v-slot="{ navigate, href }">
-                                    <a :href="href" @click="navigate" class="block text-gray-800  no-underline">
-                                        Home
-                                    </a>
+                                <router-link to="/" class="block text-gray-800 no-underline">
+                                    Home
                                 </router-link>
                             </li>
 
                             <li>
-                                <router-link to="/Listing" custom v-slot="{ navigate, href }">
-                                    <a :href="href" @click="navigate" class="block text-gray-800  no-underline">
-                                        Listings
-                                    </a>
+                                <router-link to="/listing" class="block text-gray-800 no-underline">
+                                    Listing
                                 </router-link>
                             </li>
 
                             <li>
-                                <router-link to="/about-us" custom v-slot="{ navigate, href }">
-                                    <a :href="href" @click="navigate" class="block text-gray-800  no-underline">
-                                        About Us
-                                    </a>
+                                <router-link to="/about-us" class="block text-gray-800 no-underline">
+                                    About Us
                                 </router-link>
                             </li>
 
                             <li>
-                                <router-link to="/construction" custom v-slot="{ navigate, href }">
-                                    <a :href="href" @click="navigate" class="block text-gray-800  no-underline">
-                                        Construction
-                                    </a>
+                                <router-link to="/construction" class="block text-gray-800 no-underline">
+                                    Construction
                                 </router-link>
                             </li>
 
                             <li>
-                                <router-link to="/Interiors" custom v-slot="{ navigate, href }">
-                                    <a :href="href" @click="navigate" class="block text-gray-800  no-underline">
-                                        Interiors
-                                    </a>
+                                <router-link to="/interiors" class="block text-gray-800 no-underline">
+                                    Interiors
                                 </router-link>
                             </li>
 
                             <li>
-                                <router-link to="/contact-us" custom v-slot="{ navigate, href }">
-                                    <a :href="href" @click="navigate" class="block py-2 text-gray-800  no-underline">
-                                        Contact
-                                    </a>
+                                <router-link to="/contact-us" class="block text-gray-800 no-underline">
+                                    Contact Us
                                 </router-link>
                             </li>
 
@@ -261,6 +236,8 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const isOpen = ref(false) // <-- Mobile menu state
+const menuWrapper = ref(null)      // ✅ ADD THIS
+const userMenu = ref(null)
 
 // Toggle mobile menu
 const toggleMenu = () => {
@@ -269,15 +246,18 @@ const toggleMenu = () => {
 
 // Close menu on outside click
 const handleClickOutsideMobile = (event) => {
-    const menuWrapper = document.querySelector('[ref="menuWrapper"]')
-    if (isOpen.value && menuWrapper && !menuWrapper.contains(event.target)) {
+    if (
+        isOpen.value &&
+        menuWrapper.value &&
+        !menuWrapper.value.contains(event.target)
+    ) {
         isOpen.value = false
     }
 }
 
+
 // ---- Existing User Dropdown + Login/Logout Logic ----
 const isUserDropdownOpen = ref(false)
-const userMenu = ref(null)
 const isLoggedIn = ref(false)
 const full_name = ref('')
 
