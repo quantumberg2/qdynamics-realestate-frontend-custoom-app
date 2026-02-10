@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div></div>
         <!-- First Section -->
         <div class="relative w-full h-auto mb-6">
             <!-- Background Image -->
