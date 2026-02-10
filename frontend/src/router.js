@@ -8,6 +8,7 @@ import ListingDetails from './pages/ListingDetails.vue'
 import ContactUs from './pages/ContactUs.vue'
 import PrivacyPolicy from './pages/PrivacyPolicy.vue'
 import TermsAndConditions from './pages/TermsAndConditions.vue'
+import gallery from './pages/gallery.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/about-us',
     name: 'AboutUs',
     component: AboutUs,
+  },
+  {
+    path: '/gallery',
+    name: 'gallery',
+    component: gallery,
   },
   {
     path: '/construction',

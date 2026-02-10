@@ -58,13 +58,16 @@ website_route_rules = [
     {"from_route": "/assets/<path:path>", "to_route": "/assets/<path:path>"},
 
     # --------------------------------------------------
-    # Vue SPA routes (history mode)
+    # Vue SPA entry (history mode)
     # --------------------------------------------------
     {"from_route": "/", "to_route": "/"},
 
-    # Static pages
+    # --------------------------------------------------
+    # Static SPA routes (as per router.js)
+    # --------------------------------------------------
     {"from_route": "/listing", "to_route": "/"},
     {"from_route": "/about-us", "to_route": "/"},
+    {"from_route": "/gallery", "to_route": "/"},
     {"from_route": "/construction", "to_route": "/"},
     {"from_route": "/interiors", "to_route": "/"},
     {"from_route": "/contact-us", "to_route": "/"},
@@ -72,12 +75,15 @@ website_route_rules = [
     {"from_route": "/terms-and-conditions", "to_route": "/"},
 
     # --------------------------------------------------
-    # Dynamic routes
+    # Dynamic SPA routes
     # --------------------------------------------------
-    # Listing details (/listing/:slug)
+    # /listing/:slug
     {"from_route": "/listing/<slug>", "to_route": "/"},
+
+    # Safety net for any deeper listing paths
     {"from_route": "/listing/<path:path>", "to_route": "/"},
 ]
+
 
 
 

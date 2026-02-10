@@ -1,5 +1,5 @@
 <template>
-    <header class="absolute top-0 left-0 w-full z-50 bg-transprent">
+    <header class="absolute top-0 left-0 w-full z-50 bg-transprent sticky bg-white mb-0">
         <div class="max-w-7xl mx-auto">
             <nav class="flex items-center justify-between px-[30px] sm:px-[150px]  relative">
                 <!-- Logo -->
@@ -36,17 +36,18 @@
                                 </svg>
                             </div>
 
-                            <ul class="absolute hidden group-hover:block bg-white border rounded shadow-md w-60 z-50">
+                            <ul
+                                class="absolute hidden group-hover:block bg-white border-0 rounded shadow-md w-60 z-50 p-3">
                                 <li>
                                     <router-link :to="{ path: '/listing', query: { status: 'New' } }"
-                                        class="block py-2 px-4 text-gray-800 no-underline hover:bg-gray-100">
+                                        class="block py-2 px-4 text-gray-800 no-underline  text-[15px]">
                                         New Listing
                                     </router-link>
                                 </li>
 
                                 <li>
                                     <router-link :to="{ path: '/listing', query: { status: 'Sold Out' } }"
-                                        class="block py-2 px-4 text-gray-800 no-underline hover:bg-gray-100">
+                                        class="block py-2 px-4 text-gray-800 no-underline  text-[15px]">
                                         Completed Listing
                                     </router-link>
                                 </li>
@@ -56,6 +57,12 @@
                         <li>
                             <router-link to="/about-us" class="text-gray-800 no-underline">
                                 About Us
+                            </router-link>
+                        </li>
+
+                        <li>
+                            <router-link to="/gallery" class="text-gray-800 no-underline">
+                                Gallery
                             </router-link>
                         </li>
 
@@ -69,14 +76,17 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <ul class="absolute hidden group-hover:block bg-white border rounded shadow-md w-40 z-50">
+                            <ul
+                                class="absolute hidden group-hover:block bg-white border-0 rounded shadow-md w-60 z-50 p-3">
                                 <li>
-                                    <router-link to="/construction" class="block py-2 text-gray-800 no-underline">
+                                    <router-link to="/construction"
+                                        class="block py-2 px-4 text-gray-800 no-underline text-[15px]">
                                         Construction
                                     </router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/interiors" class="block py-2 text-gray-800 no-underline">
+                                    <router-link to="/interiors"
+                                        class="block py-2 px-4 text-gray-800 no-underline text-[15px]">
                                         Interiors
                                     </router-link>
                                 </li>
@@ -205,6 +215,13 @@
                                 <router-link to="/about-us" class="block font-medium text-gray-800 no-underline"
                                     @click="closeMobileMenu">
                                     About Us
+                                </router-link>
+                            </li>
+
+                            <li>
+                                <router-link to="/gallery" class="block font-medium text-gray-800 no-underline"
+                                    @click="closeMobileMenu">
+                                    Gallery
                                 </router-link>
                             </li>
 

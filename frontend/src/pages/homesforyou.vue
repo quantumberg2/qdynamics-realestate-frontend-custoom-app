@@ -6,7 +6,7 @@
                 <div class="w-full flex justify-center mt-1">
                     <div class="relative w-full max-w-6xl">
                         <p class="text-sm text-center">Based on your view history</p>
-                        <router-link to="/Listing">
+                        <router-link to="/listing">
                             <div
                                 class="absolute right-0 top-0 flex items-center text-sm cursor-pointer underline text-black">
                                 View All

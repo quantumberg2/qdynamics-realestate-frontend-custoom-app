@@ -6,17 +6,19 @@
             <img :src="aboutData.heroImage" alt="About Us Image" class="w-full h-auto object-cover" />
 
             <!-- Overlapping Button -->
-            <button class="absolute top-[78%] right-[8%] bg-[#1a1a1a] text-white px-6 py-2 rounded-md flex items-center text-xs space-x-2 hover:bg-gray-800 transition duration-300
+            <router-link to="contact-us"><button class="absolute top-[78%] right-[8%] bg-[#1a1a1a] text-white px-6 py-2 rounded-md flex items-center text-xs space-x-2 hover:bg-gray-800 transition duration-300
                  sm:text-xs sm:px-5 sm:py-[10px] 
                  xs:text-[10px] xs:px-4 xs:py-2">
-                <span>{{ aboutData.buttonText }}</span>
-                <span v-if="aboutData.buttonIcon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-4 h-3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                    </svg>
-                </span>
-            </button>
+                    <span>{{ aboutData.buttonText }}</span>
+                    <span v-if="aboutData.buttonIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-3">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                        </svg>
+                    </span>
+                </button>
+            </router-link>
         </div>
 
         <!-- Heading and Intro Section -->
@@ -72,7 +74,7 @@
                         <div class="text-7xl font-semibold mb-2">{{ aboutData.letUsHeading }}</div>
                         <p v-for="(para, index) in aboutData.letUsContent" :key="index">{{ para }}</p>
 
-                        <router-link to="/Listing" custom v-slot="{ navigate }">
+                        <router-link to="/listing" custom v-slot="{ navigate }">
                             <button @click="navigate"
                                 class="flex items-center text-sm cursor-pointer bg-[#1a1a1a] px-4 py-2 rounded-lg text-white">
                                 Projects

@@ -116,7 +116,7 @@
           <div class="w-full flex justify-center mt-1">
             <div class="relative w-full max-w-6xl">
               <p class="text-sm text-center">Based on your view history</p>
-              <router-link to="/Listing">
+              <router-link to="/listing">
                 <div class="absolute right-0 top-0 flex items-center text-sm cursor-pointer underline text-black">
                   View All
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -211,7 +211,7 @@
       <FeaturedProperties />
 
       <!-- Sixth Section -->
-      <CustomerTestimonials />
+      <!-- <CustomerTestimonials /> -->
 
       <!-- seventh Section -->
       <HomeIntroSection />

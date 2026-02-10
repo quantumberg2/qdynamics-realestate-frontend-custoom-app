@@ -16,7 +16,7 @@
 
                         <!-- Image Section -->
                         <div class="relative p-2 pb-0">
-                            <img :src="property.image" class="card-img-top rounded-3" alt="Property" />
+                            <img :src="property.image" class="w-full h-52 object-cover rounded-xl" alt="Property" />
 
                             <!-- Status Badge -->
                             <div class="absolute top-6 left-6">

@@ -7,7 +7,7 @@
                 class="w-full h-auto object-cover" />
             <!-- Overlapping Button -->
 
-            <router-link to="/Listing"><button
+            <router-link to="/listing"><button
                     class="absolute top-[33%] right-[8%] flex items-center text-sm cursor-pointer bg-[#1a1a1a] px-4 py-2 rounded-lg text-white">
                     <span>Projects</span>
                     <span>
@@ -111,7 +111,7 @@
                             into homes, One design at a time
                         </div>
 
-                        <router-link to="/Listing" custom v-slot="{ navigate }">
+                        <router-link to="/listing" custom v-slot="{ navigate }">
                             <button @click="navigate"
                                 class="inline-flex items-center text-sm cursor-pointer bg-[#1a1a1a] px-4 py-2 rounded-full text-white w-auto self-start">
                                 Explore Our Projects

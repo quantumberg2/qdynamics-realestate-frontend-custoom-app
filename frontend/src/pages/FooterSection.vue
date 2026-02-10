@@ -12,10 +12,25 @@
                 <!-- Social -->
                 <div class="flex items-center space-x-4 mt-4 md:mt-0">
                     <span class="font-medium text-sm">Follow Us</span>
-                    <i class="fab fa-facebook-f text-sm cursor-pointer hover:text-gray-500"></i>
-                    <i class="fab fa-twitter text-sm cursor-pointer hover:text-gray-500"></i>
-                    <i class="fab fa-instagram text-sm cursor-pointer hover:text-gray-500"></i>
-                    <i class="fab fa-linkedin-in text-sm cursor-pointer hover:text-gray-500"></i>
+                    <a href="https://www.facebook.com/destinypromotersin/" target="_blank">
+                        <i class="bi bi-facebook text-sm text-gray-900"></i>
+                    </a>
+
+                    <a href="https://x.com/DestinyPromoter" target="_blank">
+                        <i class="bi bi-twitter-x text-sm text-gray-900"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/destinypromoterss/" target="_blank">
+                        <i class="bi bi-instagram text-sm text-gray-900"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/company/destinypromoters/" target="_blank">
+                        <i class="bi bi-linkedin text-sm text-gray-900"></i>
+                    </a>
+
+                    <a href="https://www.youtube.com/channel/UCwKJXlq9_bnWdGedkVfLfKA" target="_blank">
+                        <i class="bi bi-youtube text-sm text-gray-900"></i>
+                    </a>
                 </div>
             </div>
 
@@ -52,9 +67,13 @@
                 <div class="col-span-1">
                     <div class="font-semibold mb-3 text-sm">Quick Links</div>
                     <div class="space-y-2 text-xs text-black">
-                        <div><router-link to="/AboutUs" class="text-black no-underline">About</router-link></div>
+                        <div><router-link to="/listing" class="text-black no-underline">Listing</router-link></div>
+                        <div><router-link to="/about-us" class="text-black no-underline">About</router-link></div>
+                        <div><router-link to="/gallery" class="text-black no-underline">Gallery</router-link></div>
+                        <div><router-link to="/construction" class="text-black no-underline">Construction</router-link>
+                        </div>
+                        <div><router-link to="/interiors" class="text-black no-underline">Interiors</router-link></div>
                         <div><router-link to="/contact-us" class="text-black no-underline">Contact</router-link></div>
-                        <div><router-link to="/Listing" class="text-black no-underline">Listing</router-link></div>
                         <div><router-link to="/privacy-policy" class="text-black no-underline">Privacy
                                 Policy</router-link></div>
                         <div><router-link to="/terms-and-conditions" class="text-black no-underline">Terms &
@@ -87,8 +106,9 @@
 
             <!-- Bottom -->
             <div class="flex flex-col md:flex-row items-center px-8 py-2 text-xs text-black gap-10 md:gap-40 pb-5">
-                <span>Copyright © 2025. Destiny Promoters</span>
-                <span>Powered By: Quantumberg Technologies Pvt Ltd</span>
+                <span>Copyright © {{ currentYear }}. Destiny Promoters</span>
+                <a href="https://quantumberg.com/" class="text-black"><span>Powered By: Quantumberg Technologies Pvt
+                        Ltd</span></a>
             </div>
         </footer>
     </div>
@@ -107,6 +127,8 @@ const statusClass = computed(() => {
     if (status.value === "success") return "text-green-600";
     return "text-red-600";
 });
+
+const currentYear = new Date().getFullYear();
 
 const subscribe = async () => {
     if (!email.value) {

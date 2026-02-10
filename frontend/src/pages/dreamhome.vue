@@ -20,7 +20,7 @@
                     apart from other companies is the world class sales and marketing service we provide to the most
                     deluxe
                     projects in Bangalore at a feasible price.</p>
-                <router-link to="/Aboutus" custom v-slot="{ navigate }"><button @click="navigate"
+                <router-link to="/about-us" custom v-slot="{ navigate }"><button @click="navigate"
                         class="flex items-center text-sm cursor-pointer text-white bg-[#1A1A1A] px-4 py-2 rounded-lg">
                         About Us
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
