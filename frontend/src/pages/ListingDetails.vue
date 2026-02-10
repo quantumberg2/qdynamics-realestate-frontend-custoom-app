@@ -74,7 +74,7 @@
                         <div class="col-6">
                             <div class="mb-2">Status: <span class="font-semibold">{{ property.status }}</span></div>
                             <div class="mb-2">Project Area: <span class="font-semibold">{{ property.projectArea
-                                    }}</span></div>
+                            }}</span></div>
                             <div class="mb-2">Project By: <span class="font-semibold">{{ property.builder }}</span>
                             </div>
                             <div class="mb-2">Super Built Up Area: <span class="font-semibold">{{

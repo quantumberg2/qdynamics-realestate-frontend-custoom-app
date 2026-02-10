@@ -36,7 +36,7 @@ const routes = [
     component: Interiors,
   },
   {
-    path: '/listing/:slug', 
+    path: '/listing/:slug',
     name: 'ListingDetails',
     component: ListingDetails,
     props: true
