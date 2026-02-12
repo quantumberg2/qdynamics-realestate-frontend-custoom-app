@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-02-12 10:47:41.066415",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "select_tag",
+  "image"
+ ],
+ "fields": [
+  {
+   "fieldname": "select_tag",
+   "fieldtype": "Link",
+   "label": "Select Tag",
+   "options": "Tag"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-02-12 10:48:29.368221",
+ "modified_by": "Administrator",
+ "module": "Destiny Promoters Website",
+ "name": "Gallery",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

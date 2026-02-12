@@ -97,18 +97,6 @@ import { useRouter } from "vue-router"
 const router = useRouter()
 
 /* ---------------------------
-   Listing Details 
-----------------------------*/
-const goToDetails = () => {
-    if (!selectedProject.value?.url) return
-
-    router.push({
-        name: "ListingDetails",
-        params: { slug: selectedProject.value.url }
-    })
-}
-
-/* ---------------------------
    STATE
 ----------------------------*/
 const properties = ref([])
@@ -118,51 +106,46 @@ const images = ref([])
 const activeTag = ref(null)
 
 /* ---------------------------
-   FETCH HELPERS
+   FETCH PROJECTS
 ----------------------------*/
-const fetchJSON = async (url) => {
-    const res = await fetch(url)
-    const data = await res.json()
-    return data.message || []
-}
-
 const fetchProperties = async () => {
-    properties.value = await fetchJSON(
-        "/api/method/destiny_promoters_website.api.gallery_images.get_gallery_projects"
+    const res = await fetch(
+        "/api/method/destiny_promoters_website.api.project_api.get_gallery_projects"
     )
-}
-
-const fetchTags = async (project) => {
-    tags.value = await fetchJSON(
-        `/api/method/destiny_promoters_website.api.gallery_images.get_project_gallery_tags?project=${project}`
-    )
-}
-
-const fetchImages = async (project, tag) => {
-    images.value = await fetchJSON(
-        `/api/method/destiny_promoters_website.api.gallery_images.get_gallery_images?project=${project}&tag=${tag}`
-    )
+    const data = await res.json()
+    properties.value = data.message || []
 }
 
 /* ---------------------------
    ACTIONS
 ----------------------------*/
-const selectProject = async (property) => {
+const selectProject = (property) => {
     selectedProject.value = property
     activeTag.value = null
     images.value = []
 
-    await fetchTags(property.project)
+    // Extract tags from custom_gallery
+    tags.value = property.custom_gallery?.map(g => g.select_tag) || []
 
-    // Auto-load first tag
+    // Auto-select first tag
     if (tags.value.length) {
         selectTag(tags.value[0])
     }
 }
 
-const selectTag = async (tag) => {
+const selectTag = (tag) => {
     activeTag.value = tag
-    await fetchImages(selectedProject.value.project, tag)
+
+    const gallery = selectedProject.value.custom_gallery?.find(
+        g => g.select_tag === tag
+    )
+
+    images.value = gallery
+        ? gallery.images.map((img, index) => ({
+            name: index,
+            image: img
+        }))
+        : []
 }
 
 const resetGallery = () => {
@@ -170,6 +153,18 @@ const resetGallery = () => {
     tags.value = []
     images.value = []
     activeTag.value = null
+}
+
+/* ---------------------------
+   GO TO DETAILS
+----------------------------*/
+const goToDetails = () => {
+    if (!selectedProject.value?.url) return
+
+    router.push({
+        name: "ListingDetails",
+        params: { slug: selectedProject.value.url }
+    })
 }
 
 /* ---------------------------

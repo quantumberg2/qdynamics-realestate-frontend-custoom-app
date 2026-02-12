@@ -22,47 +22,9 @@
                             </router-link>
                         </li>
 
-                        <li class="relative group">
-                            <div class="text-gray-800 no-underline flex items-center">
-                                <router-link to="/listing" class="text-gray-800 no-underline">
-                                    Listing
-                                </router-link>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-
-                            <ul
-                                class="absolute hidden group-hover:block bg-white border-0 rounded shadow-md w-60 z-50 p-3">
-                                <li>
-                                    <router-link :to="{ path: '/listing', query: { status: 'New' } }"
-                                        class="block py-2 px-4 text-gray-800 no-underline  text-[15px]">
-                                        New Listing
-                                    </router-link>
-                                </li>
-
-                                <li>
-                                    <router-link :to="{ path: '/listing', query: { status: 'Sold Out' } }"
-                                        class="block py-2 px-4 text-gray-800 no-underline  text-[15px]">
-                                        Completed Listing
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </li>
-
                         <li>
                             <router-link to="/about-us" class="text-gray-800 no-underline">
                                 About Us
-                            </router-link>
-                        </li>
-
-                        <li>
-                            <router-link to="/gallery" class="text-gray-800 no-underline">
-                                Gallery
                             </router-link>
                         </li>
 
@@ -92,6 +54,46 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="relative group">
+                            <div class="text-gray-800 no-underline flex items-center">
+                                <router-link to="/listing" class="text-gray-800 no-underline">
+                                    Projects
+                                </router-link>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+
+                            <ul
+                                class="absolute hidden group-hover:block bg-white border-0 rounded shadow-md w-60 z-50 p-3">
+                                <li>
+                                    <router-link :to="{ path: '/listing', query: { status: 'New' } }"
+                                        class="block py-2 px-4 text-gray-800 no-underline  text-[15px]">
+                                        New
+                                    </router-link>
+                                </li>
+
+                                <li>
+                                    <router-link :to="{ path: '/listing', query: { status: 'Sold Out' } }"
+                                        class="block py-2 px-4 text-gray-800 no-underline  text-[15px]">
+                                        Completed
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <router-link to="/gallery" class="text-gray-800 no-underline">
+                                Gallery
+                            </router-link>
+                        </li>
+
+
 
                         <li>
                             <router-link to="/contact-us" class="block py-2 text-gray-800 no-underline">
@@ -184,7 +186,7 @@
                                     class="w-full flex justify-between items-center font-medium text-gray-800 no-underline ">
                                     <router-link to="/listing" class="text-gray-800 no-underline"
                                         @click="closeMobileMenu">
-                                        Listing
+                                        Projects
                                     </router-link>
                                     <span :class="{ 'rotate-180': isListingOpen }" class="transition">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
@@ -199,12 +201,12 @@
                                 <ul v-show="isListingOpen" class="mt-2 space-y-2">
                                     <router-link :to="{ path: '/listing', query: { status: 'New' } }"
                                         class="block text-gray-800 no-underline" @click="closeMobileMenu">
-                                        New Listing
+                                        New
                                     </router-link>
                                     <li>
                                         <router-link :to="{ path: '/listing', query: { status: 'Sold Out' } }"
                                             class="block text-gray-800 no-underline" @click="closeMobileMenu">
-                                            Completed Listing
+                                            Completed
                                         </router-link>
                                     </li>
                                 </ul>

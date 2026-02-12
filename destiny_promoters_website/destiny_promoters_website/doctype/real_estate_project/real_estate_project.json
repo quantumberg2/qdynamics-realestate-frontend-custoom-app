@@ -6,6 +6,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "project_details_section",
   "project_name",
   "heading_project_location",
   "status",
@@ -27,7 +28,9 @@
   "thumbnail",
   "section_break_drmb",
   "carousel_images",
-  "gallery_images"
+  "gallery_images",
+  "project_gallery_image_section",
+  "project_gallery"
  ],
  "fields": [
   {
@@ -120,7 +123,8 @@
   },
   {
    "fieldname": "section_break_drmb",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Project Related Images"
   },
   {
    "fieldname": "carousel_images",
@@ -143,12 +147,28 @@
    "fieldname": "url",
    "fieldtype": "Data",
    "label": "Url"
+  },
+  {
+   "fieldname": "project_details_section",
+   "fieldtype": "Section Break",
+   "label": "Project Details"
+  },
+  {
+   "fieldname": "project_gallery_image_section",
+   "fieldtype": "Section Break",
+   "label": "Project Gallery Image"
+  },
+  {
+   "fieldname": "project_gallery",
+   "fieldtype": "Table",
+   "label": "Project Gallery",
+   "options": "Gallery"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-06 20:23:25.127421",
+ "modified": "2026-02-12 10:50:24.688169",
  "modified_by": "Administrator",
  "module": "Destiny Promoters Website",
  "name": "Real Estate Project",
