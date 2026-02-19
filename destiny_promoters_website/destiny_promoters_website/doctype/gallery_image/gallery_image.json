@@ -7,12 +7,15 @@
  "field_order": [
   "gallery_image_section",
   "project",
-  "image"
+  "image",
+  "add_gallery_image_section",
+  "upload_gallery_image"
  ],
  "fields": [
   {
    "fieldname": "gallery_image_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Gallery Image"
   },
   {
@@ -20,20 +23,29 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Project",
-   "options": "Real Estate Project",
-   "reqd": 1
+   "options": "Real Estate Project"
   },
   {
    "fieldname": "image",
    "fieldtype": "Attach Image",
-   "label": "Image",
-   "reqd": 1
+   "label": "Image"
+  },
+  {
+   "fieldname": "add_gallery_image_section",
+   "fieldtype": "Section Break",
+   "label": "Add Gallery Image"
+  },
+  {
+   "fieldname": "upload_gallery_image",
+   "fieldtype": "Table",
+   "label": "Upload Gallery Image",
+   "options": "Gallery"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-10 11:47:56.608472",
+ "modified": "2026-02-19 16:56:31.079810",
  "modified_by": "Administrator",
  "module": "Destiny Promoters Website",
  "name": "Gallery Image",

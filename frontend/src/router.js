@@ -9,6 +9,7 @@ import ContactUs from './pages/ContactUs.vue'
 import PrivacyPolicy from './pages/PrivacyPolicy.vue'
 import TermsAndConditions from './pages/TermsAndConditions.vue'
 import gallery from './pages/gallery.vue'
+import GalleryPage from './pages/GalleryPage.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/gallery',
     name: 'gallery',
     component: gallery,
+  },
+  {
+    path: '/gallery-page',
+    name: 'GalleryPage',
+    component: GalleryPage,
   },
   {
     path: '/construction',

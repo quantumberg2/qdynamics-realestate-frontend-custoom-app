@@ -69,7 +69,7 @@
                     <div class="space-y-2 text-xs text-black">
                         <div><router-link to="/listing" class="text-black no-underline">Listing</router-link></div>
                         <div><router-link to="/about-us" class="text-black no-underline">About</router-link></div>
-                        <div><router-link to="/gallery" class="text-black no-underline">Gallery</router-link></div>
+                        <div><router-link to="/gallery-page" class="text-black no-underline">Gallery</router-link></div>
                         <div><router-link to="/construction" class="text-black no-underline">Construction</router-link>
                         </div>
                         <div><router-link to="/interiors" class="text-black no-underline">Interiors</router-link></div>

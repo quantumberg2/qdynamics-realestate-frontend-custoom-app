@@ -68,6 +68,7 @@ website_route_rules = [
     {"from_route": "/listing", "to_route": "/"},
     {"from_route": "/about-us", "to_route": "/"},
     {"from_route": "/gallery", "to_route": "/"},
+    {"from_route": "/gallery-page", "to_route": "/"},
     {"from_route": "/construction", "to_route": "/"},
     {"from_route": "/interiors", "to_route": "/"},
     {"from_route": "/contact-us", "to_route": "/"},

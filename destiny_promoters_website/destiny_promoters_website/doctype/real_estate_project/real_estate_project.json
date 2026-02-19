@@ -156,6 +156,7 @@
   {
    "fieldname": "project_gallery_image_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Project Gallery Image"
   },
   {
@@ -168,7 +169,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-12 10:50:24.688169",
+ "modified": "2026-02-19 15:36:16.802422",
  "modified_by": "Administrator",
  "module": "Destiny Promoters Website",
  "name": "Real Estate Project",

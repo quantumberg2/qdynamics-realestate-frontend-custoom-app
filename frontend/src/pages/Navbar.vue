@@ -18,7 +18,7 @@
                         <!-- Example for Desktop Navigation -->
                         <li>
                             <router-link to="/" class="text-gray-800 no-underline">
-                                Home
+                                Destiny
                             </router-link>
                         </li>
 
@@ -88,7 +88,7 @@
                         </li>
 
                         <li>
-                            <router-link to="/gallery" class="text-gray-800 no-underline">
+                            <router-link to="/gallery-page" class="text-gray-800 no-underline">
                                 Gallery
                             </router-link>
                         </li>
@@ -177,7 +177,7 @@
                             <!-- Home -->
                             <router-link to="/" class="block font-medium text-gray-800 no-underline"
                                 @click="closeMobileMenu">
-                                Home
+                                Destiny
                             </router-link>
 
                             <!-- Listing Dropdown -->
@@ -221,7 +221,7 @@
                             </li>
 
                             <li>
-                                <router-link to="/gallery" class="block font-medium text-gray-800 no-underline"
+                                <router-link to="/gallery-page" class="block font-medium text-gray-800 no-underline"
                                     @click="closeMobileMenu">
                                     Gallery
                                 </router-link>
