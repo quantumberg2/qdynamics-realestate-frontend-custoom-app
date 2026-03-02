@@ -111,14 +111,12 @@
                 <a href="https://quantumberg.com/" class="text-black"><span>Powered By: Quantumberg Technologies Pvt
                         Ltd</span></a>
             </div>
-            <!-- <Footbar /> -->
         </footer>
     </div>
 </template>
 
 
 <script setup>
-// import Footbar from '../footbar.vue'
 import { ref, computed } from "vue";
 
 const email = ref("");
