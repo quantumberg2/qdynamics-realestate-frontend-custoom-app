@@ -1,107 +1,28 @@
 <template>
-    <div class="fixed bottom-0 left-0 w-full bg-sky-50 border-t shadow-md z-50 md:hidden">
-        <div class="grid grid-cols-3 text-center py-1">
-
-            <!-- Install / Open App -->
-            <!-- <button @click="handleAppButton"
-                class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600">
-
-                <i v-if="!isInstalled" class="bi bi-download text-xl"></i>
-                <i v-else class="bi bi-box-arrow-up-right text-xl"></i>
-
-                <span class="text-xs mt-1">
-                    {{ isInstalled ? 'Open in App' : 'Install' }}
-                </span>
-            </button> -->
+    <div class="fixed bottom-0 left-0 w-full bg-[#1a1a1a] border-t shadow-md z-50 md:hidden">
+        <div class="grid grid-cols-3 text-center">
 
             <!-- Call -->
             <a href="tel:+919686450917"
-                class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600">
-                <i class="bi bi-telephone text-xl"></i>
-                <span class="text-xs mt-1">Call</span>
+                class="flex items-center justify-center gap-2 py-2 text-white border-r border-white/40">
+                <i class="bi bi-telephone text-lg"></i>
+                <span class="text-sm">Call</span>
             </a>
 
-            <!-- Contact -->
+            <!-- Enquire -->
             <router-link to="/contact-us"
-                class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600">
-                <i class="bi bi-person text-xl"></i>
-                <span class="text-xs mt-1">Contact</span>
+                class="flex items-center justify-center gap-2 py-2 text-white border-r border-white/40">
+                <i class="bi bi-envelope text-lg"></i>
+                <span class="text-sm">Enquire</span>
             </router-link>
 
             <!-- WhatsApp -->
-            <a href="https://wa.me/918123619994" target="_blank"
-                class="flex flex-col items-center justify-center text-gray-800 hover:text-green-600">
-                <i class="bi bi-whatsapp text-xl"></i>
-                <span class="text-xs mt-1">WhatsApp</span>
+            <a href="https://wa.me/919686450917" target="_blank"
+                class="flex items-center justify-center gap-2 py-2 text-white">
+                <i class="bi bi-whatsapp text-lg text-green-400"></i>
+                <span class="text-sm">WhatsApp</span>
             </a>
 
         </div>
     </div>
 </template>
-
-<!-- <script setup>
-import { ref, onMounted } from "vue";
-
-const deferredPrompt = ref(null);
-const isInstalled = ref(false);
-const isStandalone = ref(false);
-
-// Detect if running as PWA
-const detectStandalone = () => {
-    isStandalone.value =
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true;
-
-    if (isStandalone.value) {
-        isInstalled.value = true;
-    }
-};
-
-onMounted(() => {
-
-    detectStandalone();
-
-    // Install available
-    window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt.value = e;
-        isInstalled.value = false;
-        console.log("Install available");
-    });
-
-    // App installed
-    window.addEventListener("appinstalled", () => {
-        isInstalled.value = true;
-        deferredPrompt.value = null;
-        console.log("App installed");
-    });
-
-    // Detect if already installed
-    setTimeout(() => {
-        if (!deferredPrompt.value) {
-            isInstalled.value = true;
-        }
-    }, 1500);
-});
-
-// Button click handler
-const handleAppButton = async () => {
-
-    // Already running as PWA
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-        return;
-    }
-
-    // Install available
-    if (deferredPrompt.value) {
-        deferredPrompt.value.prompt();
-        const result = await deferredPrompt.value.userChoice;
-        deferredPrompt.value = null;
-        return;
-    }
-
-    // Already installed but in browser
-    alert("Please open it from your device's app list.");
-};
-
-</script> -->

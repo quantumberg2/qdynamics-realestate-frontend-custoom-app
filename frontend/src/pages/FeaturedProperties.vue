@@ -4,7 +4,7 @@
         <!-- Section Heading -->
         <div class="text-center mb-6">
             <div class="font-semibold text-7xl">Featured Properties</div>
-            <p class="text-xs">Lorem ipsum dolor sit amet</p>
+            <p class="text-xs">Explore the best homes and investments tailored for you</p>
         </div>
 
         <!-- Carousel -->

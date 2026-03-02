@@ -19,11 +19,11 @@
                 <input type="text" placeholder="Search For A Property" v-model="searchQuery"
                     class="w-full px-4 py-3 pr-40 rounded-xl bg-gray-100 text-sm border-0 outline-none focus:ring-0" />
 
-                <button
+                <!-- <button
                     class="hidden md:flex absolute top-1/2 right-2 transform -translate-y-1/2 bg-black text-white px-5 py-2 rounded-lg text-sm items-center gap-2 hover:bg-gray-800">
                     <i class="bi bi-search text-base"></i>
                     Find Property
-                </button>
+                </button> -->
 
                 <div class="block md:hidden mt-4 text-center">
                     <button
@@ -88,7 +88,7 @@ import BuildingAmenities from './BuildingAmenities.vue'
 const route = useRoute()
 
 const properties = ref([])
-const searchQuery = ref('')
+const searchQuery = ref(route.query.keyword || '')   // ✅ Get keyword from URL
 const loading = ref(false)
 
 // -------- Utils --------
@@ -129,7 +129,8 @@ const fetchProjects = async () => {
             location: p.full_location,
             bhk: p.bhk,
             floors: p.floors,
-            status: p.status
+            status: p.status,
+            area: p.super_built_up_area   // ✅ ADD THIS
         }))
     } catch (err) {
         console.error('Error fetching properties:', err)
@@ -142,13 +143,28 @@ const fetchProjects = async () => {
 // -------- Lifecycle --------
 onMounted(fetchProjects)
 watch(() => route.query.status, fetchProjects)
+watch(
+    () => route.query.keyword,
+    (newKeyword) => {
+        searchQuery.value = newKeyword || ''
+    }
+)
 
 // -------- Search --------
 const filteredProperties = computed(() => {
     const q = searchQuery.value.toLowerCase()
+
+    if (!q) return properties.value
+
     return properties.value.filter(p =>
         p.slug &&
-        p.name?.toLowerCase().includes(q)
+        (
+            p.name?.toLowerCase().includes(q) ||
+            p.location?.toLowerCase().includes(q) ||
+            p.status?.toLowerCase().includes(q) ||
+            p.bhk?.toString().includes(q) ||
+            p.area?.toString().includes(q)
+        )
     )
 })
 </script>

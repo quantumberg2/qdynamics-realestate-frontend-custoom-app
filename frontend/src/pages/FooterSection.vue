@@ -1,7 +1,6 @@
 <template>
     <div class="md:px-5 py-3">
-        <!-- <footer class="bg-gray-50 rounded-2xl shadow-sm mb-20 md:mb-0"> -->
-        <footer class="bg-gray-50 rounded-2xl shadow-sm">
+        <footer class="bg-gray-50 rounded-2xl shadow-sm mb-20 md:mb-0">
             <!-- Top -->
             <div class="flex flex-col md:flex-row items-center justify-between px-8 py-6">
                 <!-- Logo -->
@@ -111,12 +110,14 @@
                 <a href="https://quantumberg.com/" class="text-black"><span>Powered By: Quantumberg Technologies Pvt
                         Ltd</span></a>
             </div>
+            <Footbar />
         </footer>
     </div>
 </template>
 
 
 <script setup>
+import Footbar from '../footbar.vue'
 import { ref, computed } from "vue";
 
 const email = ref("");

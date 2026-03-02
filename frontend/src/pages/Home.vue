@@ -18,8 +18,8 @@
           <div class="text-lg sm:text-3xl md:text-[45px] font-semibold mb-1 sm:mb-2">
             Enjoy The Finest Homes
           </div>
-          <p class="text-[10px] sm:text-xs md:text-sm mb-4 sm:mb-8">
-            From as low as $10 per day with limited time offer discounts
+          <p class="text-[10px] sm:text-xs md:text-sm mb-4 sm:mb-8 text-black">
+            From as low as 10 per day with limited time offer discounts
           </p>
 
           <!-- Filter Tabs -->
@@ -46,37 +46,29 @@
             class="bg-white rounded-2xl sm:rounded-xl p-3 sm:p-2 shadow-lg w-[70%] sm:w-full sm:max-w-[50%] flex flex-col sm:flex-row items-stretch sm:items-center overflow-hidden">
 
             <!-- Keyword -->
-            <div class="flex-1 border-b sm:border-b-0 sm:border-r pr-3 sm:pr-6  sm:mb-0">
-              <label class="text-[10px] sm:text-xs text-gray-500 block text-left ml-2 sm:ml-3">Keyword</label>
-              <input type="text" placeholder="Enter Keyword"
+            <div class="flex-1 border-b sm:border-b-0 sm:border-r pr-3 sm:pr-6 sm:mb-0">
+              <label class="text-[10px] sm:text-xs text-gray-500 block text-left ml-2 sm:ml-3">
+                Search Project
+              </label>
+
+              <input v-model="searchKeyword" type="text" placeholder="Search by name, location..."
                 class="w-full text-[10px] sm:text-sm border-0 outline-none py-0 focus:ring-0 text-black placeholder:text-black placeholder:text-[10px] sm:placeholder:text-xs" />
             </div>
 
             <!-- Type -->
-            <div class="flex-1 border-b sm:border-b-0 sm:border-r px-2 sm:px-3 sm:mb-0">
+            <!-- <div class="flex-1 border-b sm:border-b-0 sm:border-r px-2 sm:px-3 sm:mb-0">
               <label class="text-[10px] sm:text-xs text-gray-500 block text-left ml-2 sm:ml-3">Type</label>
               <select class="w-full text-[10px] sm:text-sm border-0 outline-none focus:ring-0 text-black py-0">
                 <option>All Type</option>
                 <option>House</option>
                 <option>Apartment</option>
               </select>
-            </div>
+            </div> -->
 
             <!-- Buttons -->
             <div class="flex gap-1 sm:gap-2 mt-2 sm:mt-0 sm:ml-2 justify-center">
-              <!-- Filter Button -->
-              <button
-                class="flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-2 text-[10px] sm:text-sm rounded-lg bg-white text-black border hover:bg-gray-100">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                  stroke="currentColor" class="w-3 h-3 sm:w-4 sm:h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                </svg>
-                Filter
-              </button>
-
               <!-- Search Button -->
-              <button
+              <button @click="searchProjects"
                 class="px-3 sm:px-4 py-2 sm:py-2 text-[10px] sm:text-sm rounded-lg bg-[#1a1a1a] text-white hover:bg-gray-800">
                 Search
               </button>
@@ -232,8 +224,26 @@ import dreamhome from './dreamhome.vue'
 import FeaturedCategories from './FeaturedCategories.vue'
 import HomeIntroSection from './HomeIntroSection.vue'
 import BuildingAmenities from './BuildingAmenities.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const searchKeyword = ref("")
 
 const homes = ref([])
+
+const searchProjects = () => {
+  if (!searchKeyword.value.trim()) {
+    router.push('/listing')
+    return
+  }
+
+  router.push({
+    path: '/listing',
+    query: {
+      keyword: searchKeyword.value
+    }
+  })
+}
 
 onMounted(async () => {
   try {

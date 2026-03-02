@@ -16,16 +16,18 @@ def get_projects(tag=None, status=None):
     Sorted by order_by DESC
     """
 
-    filters = {}
+    filters = {
+        "is_active": 1   # Only Active Projects
+    }
 
     # --------------------------------------------------
-    # 🔹 STATUS FILTER
+    # STATUS FILTER
     # --------------------------------------------------
     if status:
         filters["status"] = status
 
     # --------------------------------------------------
-    # 🔹 TAG FILTER (Frappe Tag System)
+    # TAG FILTER (Frappe Tag System)
     # --------------------------------------------------
     if tag:
         tagged_projects = frappe.get_all(
@@ -43,7 +45,7 @@ def get_projects(tag=None, status=None):
         filters["name"] = ["in", tagged_projects]
 
     # --------------------------------------------------
-    # 🔹 FETCH PROJECTS (NO GALLERY FILTER HERE)
+    # FETCH PROJECTS
     # --------------------------------------------------
     projects = frappe.get_all(
         "Real Estate Project",
@@ -73,7 +75,7 @@ def get_projects(tag=None, status=None):
     )
 
     # --------------------------------------------------
-    # 🔹 ATTACH CHILD TABLE DATA
+    # ATTACH CHILD TABLE DATA
     # --------------------------------------------------
     for project in projects:
         project["id"] = project["name"]
@@ -99,15 +101,13 @@ def get_projects(tag=None, status=None):
 
 # ==========================================================
 # GET PROJECTS ONLY FOR GALLERY PAGE
-# (ONLY PROJECTS HAVING GALLERY CHILD RECORDS)
 # ==========================================================
 
 @frappe.whitelist(allow_guest=True)
 def get_gallery_projects():
     """
     Fetch only projects that have at least one record
-    in Gallery child doctype.
-    Used only for Gallery Page.
+    in Gallery child doctype AND are Active.
     """
 
     # Get unique project names from Gallery child table
@@ -122,10 +122,13 @@ def get_gallery_projects():
     if not project_names:
         return []
 
-    # Fetch only those projects
+    # Fetch only Active projects
     projects = frappe.get_all(
         "Real Estate Project",
-        filters={"name": ["in", project_names]},
+        filters={
+            "name": ["in", project_names],
+            "is_active": 1   # Only Active Projects
+        },
         fields=[
             "name",
             "project_name",
@@ -136,7 +139,7 @@ def get_gallery_projects():
         order_by="order_by desc"
     )
 
-    # Attach Custom Gallery (Grouped by select_tag)
+    # Attach Custom Gallery
     for project in projects:
 
         gallery_rows = frappe.get_all(
@@ -173,19 +176,24 @@ def get_gallery_projects():
 def get_project(url):
     """
     Fetch SINGLE Real Estate Project by URL
+    Only if Active
     """
 
     if not url:
         frappe.throw(_("Project URL is required"))
 
+    # Only Active Projects Allowed
     project_name = frappe.db.get_value(
         "Real Estate Project",
-        {"url": url},
+        {
+            "url": url,
+            "is_active": 1
+        },
         "name"
     )
 
     if not project_name:
-        return None
+        frappe.throw(_("Project is not available"))
 
     project = frappe.get_doc("Real Estate Project", project_name)
 

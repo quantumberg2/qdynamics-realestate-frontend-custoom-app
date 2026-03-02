@@ -26,6 +26,7 @@
   "heading_first",
   "description",
   "thumbnail",
+  "is_active",
   "section_break_drmb",
   "carousel_images",
   "gallery_images",
@@ -49,7 +50,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "\nNew\nReady to Occupy\nUpcoming\nOngoing\nSold Out\nSale"
+   "options": "\nNew\nReady to Occupy\nUpcoming\nOngoing\nSold Out\nSale\nRent"
   },
   {
    "fieldname": "project_location",
@@ -164,12 +165,18 @@
    "fieldtype": "Table",
    "label": "Project Gallery",
    "options": "Gallery"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-27 16:02:01.372693",
+ "modified": "2026-03-02 15:07:52.417902",
  "modified_by": "Administrator",
  "module": "Destiny Promoters Website",
  "name": "Real Estate Project",

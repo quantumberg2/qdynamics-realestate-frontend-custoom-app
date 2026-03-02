@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto">
             <nav class="flex items-center justify-between px-[30px] sm:px-[150px]  relative">
                 <!-- Logo -->
-                <div class="flex items-center space-x-2 ">
+                <div class="flex items-center space-x-2 py-2">
                     <router-link to="/">
                         <img src="../assets/images/DP_Logo.png" alt="Logo" class="h-12" />
                     </router-link>
