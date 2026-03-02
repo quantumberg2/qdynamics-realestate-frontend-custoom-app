@@ -212,17 +212,40 @@
                                     </span>
                                 </button>
 
-                                <ul v-show="isListingOpen" class="mt-2 space-y-2">
-                                    <router-link :to="{ path: '/listing', query: { status: 'New' } }"
-                                        class="block text-gray-800 no-underline metal-regular" @click="closeMobileMenu">
-                                        New
-                                    </router-link>
+                              <ul v-show="isListingOpen" class="mt-2 space-y-2">
+
+                                    <li>
+                                        <router-link :to="{ path: '/listing', query: { status: 'New' } }"
+                                            class="block text-gray-800 no-underline metal-regular"
+                                            @click="closeMobileMenu">
+                                            New
+                                        </router-link>
+                                    </li>
+
+                                    <li>
+                                        <router-link :to="{ path: '/listing', query: { status: 'Upcoming' } }"
+                                            class="block text-gray-800 no-underline metal-regular"
+                                            @click="closeMobileMenu">
+                                            Upcoming
+                                        </router-link>
+                                    </li>
+
+                                    <li>
+                                        <router-link :to="{ path: '/listing', query: { status: 'Ongoing' } }"
+                                            class="block text-gray-800 no-underline metal-regular"
+                                            @click="closeMobileMenu">
+                                            Ongoing
+                                        </router-link>
+                                    </li>
+
                                     <li>
                                         <router-link :to="{ path: '/listing', query: { status: 'Sold Out' } }"
-                                            class="block text-gray-800 no-underline metal-regular" @click="closeMobileMenu">
+                                            class="block text-gray-800 no-underline metal-regular"
+                                            @click="closeMobileMenu">
                                             Completed
                                         </router-link>
                                     </li>
+
                                 </ul>
                             </li>
 
