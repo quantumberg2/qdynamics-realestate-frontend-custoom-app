@@ -5,7 +5,7 @@
                 <!-- Logo -->
                 <div class="flex items-center space-x-2 py-2">
                     <router-link to="/">
-                        <img src="../assets/images/DP_Logo.png" alt="Logo" class="h-12" />
+                        <img src="../assets/images/DP_Logo.png" alt="Logo" class="h-[60px]" />
                     </router-link>
                 </div>
 
@@ -14,7 +14,7 @@
                     class="hidden md:flex items-center justify-between flex-grow font-regular mt-2 ml-4 cursor-pointer">
 
                     <!-- Left nav links -->
-                    <ul class="flex items-center space-x-8">
+                    <ul class="flex items-center space-x-8 font-semibold">
                         <!-- Example for Desktop Navigation -->
                         <li>
                             <router-link to="/" class="text-gray-800 no-underline metal-regular">
@@ -187,9 +187,9 @@
                     <!-- Mobile Menu -->
                     <transition name="fade-slide">
                         <ul v-if="isOpen" ref="mobileMenu"
-                            class="absolute right-0 mt-2 bg-white w-60 shadow-lg rounded-md px-6 py-4 space-y-2 font-regular z-50">
+                            class="absolute right-0 mt-2 bg-white w-60 shadow-lg rounded-md px-6 py-4 space-y-2 z-50 font-semibold">
                             <!-- Home -->
-                            <router-link to="/" class="block font-medium text-gray-800 no-underline metal-regular"
+                            <router-link to="/" class="block  text-gray-800 no-underline metal-regular"
                                 @click="closeMobileMenu">
                                 Destiny
                             </router-link>
@@ -197,7 +197,7 @@
                             <!-- Listing Dropdown -->
                             <li>
                                 <button @click="toggleListing"
-                                    class="w-full flex justify-between items-center font-medium text-gray-800 no-underline metal-regular ">
+                                    class="w-full flex justify-between items-center  text-gray-800 no-underline metal-regular font-semibold">
                                     <router-link to="/listing" class="text-gray-800 no-underline metal-regular"
                                         @click="closeMobileMenu">
                                         Projects
@@ -212,7 +212,7 @@
                                     </span>
                                 </button>
 
-                              <ul v-show="isListingOpen" class="mt-2 space-y-2">
+                                <ul v-show="isListingOpen" class="mt-2 space-y-2">
 
                                     <li>
                                         <router-link :to="{ path: '/listing', query: { status: 'New' } }"
@@ -251,14 +251,16 @@
 
                             <!-- About -->
                             <li>
-                                <router-link to="/about-us" class="block font-medium text-gray-800 no-underline metal-regular"
+                                <router-link to="/about-us"
+                                    class="block  text-gray-800 no-underline metal-regular"
                                     @click="closeMobileMenu">
                                     About Us
                                 </router-link>
                             </li>
 
                             <li>
-                                <router-link to="/gallery-page" class="block font-medium text-gray-800 no-underline metal-regular"
+                                <router-link to="/gallery-page"
+                                    class="block  text-gray-800 no-underline metal-regular"
                                     @click="closeMobileMenu">
                                     Gallery
                                 </router-link>
@@ -267,7 +269,7 @@
                             <!-- Services Dropdown -->
                             <li>
                                 <button @click="toggleServices"
-                                    class="w-full flex justify-between items-center font-medium text-gray-800 no-underline metal-regular">
+                                    class="w-full flex justify-between items-center  text-gray-800 no-underline metal-regular font-semibold">
                                     Services
                                     <span :class="{ 'rotate-180': isServicesOpen }" class="transition">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20"
@@ -288,7 +290,8 @@
                                         </router-link>
                                     </li>
                                     <li>
-                                        <router-link to="/interiors" class="block text-gray-800 no-underline metal-regular"
+                                        <router-link to="/interiors"
+                                            class="block text-gray-800 no-underline metal-regular"
                                             @click="closeMobileMenu">
                                             Interiors
                                         </router-link>
@@ -298,7 +301,8 @@
 
                             <!-- Contact -->
                             <li>
-                                <router-link to="/contact-us" class="block font-medium text-gray-800 no-underline metal-regular"
+                                <router-link to="/contact-us"
+                                    class="block  text-gray-800 no-underline metal-regular"
                                     @click="closeMobileMenu">
                                     Contact
                                 </router-link>
@@ -474,9 +478,11 @@ onBeforeUnmount(() => {
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Metal&family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 .metal-regular {
-  font-family: "Metal", serif;
-  font-weight: 500;
-  font-style: normal;
+    font-family: "Metal", serif;
+    /* font-weight: 500; */
+    font-style: normal;
+    font-size: 18px;
+    letter-spacing: 0.05em;
 }
 
 .fade-slide-enter-active,

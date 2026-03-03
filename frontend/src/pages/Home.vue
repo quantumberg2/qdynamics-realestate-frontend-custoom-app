@@ -194,7 +194,7 @@
       </div>
 
       <!-- third Section -->
-      <FeaturedCategories />
+      <!-- <FeaturedCategories /> -->
 
       <!-- Fourth Section -->
       <dreamhome />
@@ -221,7 +221,7 @@ import { ElCarousel, ElCarouselItem } from 'element-plus'
 import FeaturedProperties from './FeaturedProperties.vue'
 import CustomerTestimonials from './CustomerTestimonials.vue'
 import dreamhome from './dreamhome.vue'
-import FeaturedCategories from './FeaturedCategories.vue'
+// import FeaturedCategories from './FeaturedCategories.vue'
 import HomeIntroSection from './HomeIntroSection.vue'
 import BuildingAmenities from './BuildingAmenities.vue'
 import { useRouter } from 'vue-router'
