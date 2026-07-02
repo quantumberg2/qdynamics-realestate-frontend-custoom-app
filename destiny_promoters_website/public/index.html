@@ -1,30 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Character Encoding -->
     <meta charset="UTF-8" />
-    <link rel="icon" href="/assets/destiny_promoters_website/assets/DP_Logo.2bfc8abe.png" />
+
+    <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Destiny Promoters</title>
 
-    <!-- PWA App  -->
-    <link rel="manifest" href="/files/manifest.json">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/files/DP_Logo.png" />
 
-    <!-- Roboto Font Stle from google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Primary SEO -->
+    <title>Destiny Promoters | Best Real Estate Company in Bengaluru</title>
 
-    <script type="module" crossorigin src="/assets/destiny_promoters_website/assets/index.8dfbbf10.js"></script>
+    <meta
+      name="description"
+      content="Destiny Promoters is a trusted real estate company in Bengaluru offering premium residential plots, apartments, villas, construction, and interior design services."
+    />
+
+    <meta
+      name="keywords"
+      content="Destiny Promoters, Bengaluru Real Estate, Residential Plots, Villas, Apartments, Construction, Interior Design, Property Developers, Builders Bengaluru"
+    />
+
+    <meta name="author" content="Destiny Promoters" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.destinypromoters.in/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Destiny Promoters" />
+    <meta
+      property="og:title"
+      content="Destiny Promoters | Best Real Estate Company in Bengaluru"
+    />
+    <meta
+      property="og:description"
+      content="Discover premium residential plots, villas, apartments, construction, and interior services with Destiny Promoters."
+    />
+    <meta
+      property="og:url"
+      content="https://www.destinypromoters.in/"
+    />
+    <meta
+      property="og:image"
+      content="https://www.destinypromoters.in/files/DP_Logo.png"
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Destiny Promoters | Best Real Estate Company in Bengaluru"
+    />
+    <meta
+      name="twitter:description"
+      content="Discover premium residential plots, villas, apartments, construction, and interior services with Destiny Promoters."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.destinypromoters.in/files/DP_Logo.png"
+    />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0D6EFD" />
+
+    <!-- Mobile Browser -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Destiny Promoters"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/files/manifest.json" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Destiny Promoters",
+        "url": "https://www.destinypromoters.in/",
+        "logo": "https://www.destinypromoters.in/files/DP_Logo.png",
+        "image": "https://www.destinypromoters.in/files/DP_Logo.png",
+        "description": "Destiny Promoters is a trusted real estate company in Bengaluru offering premium residential plots, apartments, villas, construction, and interior services.",
+        "telephone": "+91-XXXXXXXXXX",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bengaluru",
+          "addressRegion": "Karnataka",
+          "addressCountry": "IN"
+        },
+        "sameAs": [
+          "https://www.facebook.com/",
+          "https://www.instagram.com/",
+          "https://www.linkedin.com/"
+        ]
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/destiny_promoters_website/assets/index.1773c97e.js"></script>
     <link rel="modulepreload" href="/assets/destiny_promoters_website/assets/vendor.2ab8c474.js">
     <link rel="stylesheet" href="/assets/destiny_promoters_website/assets/vendor.1f7d581e.css">
     <link rel="stylesheet" href="/assets/destiny_promoters_website/assets/index.6cce6536.css">
   </head>
+
   <body>
     <div id="app"></div>
     <div id="modals"></div>
     <div id="popovers"></div>
 
-    <script> window.csrf_token = '{{ csrf_token }}'; </script>
+    <script>
+      window.csrf_token = "{{ csrf_token }}";
+    </script>
+
     
   </body>
 </html>
